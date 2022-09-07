@@ -23,9 +23,9 @@ export default function App() {
     avatar_url: "string",
     bookshelf: [
       {
-        ISBN: "string",
+        ISBN: "9781118951309",
         book_cover: "https://pictures.abebooks.com/isbn/9781118951309-uk.jpg",
-        title: "string",
+        title: "Coding for Dummies",
       },
     ],
     email: "string",

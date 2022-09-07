@@ -11,18 +11,14 @@ const BookShelf: React.FC<StackScreenProps<any>> = ({ navigation }) => {
   const { user } = useAuthentication();
   const { currentUser } = useContext(UserContext);
 
-  //api call to our backend to get the users books - display;
-  //pic title auth catagory
-  //button to add-book screen
-  //create new screen to have the ability to add new book to our db
-
   return (
     <View style={styles.container}>
       <Text>{user?.email} BookShelf!</Text>
       {currentUser?.bookshelf.map(function (book) {
         return (
-          <Card>
+          <Card key={book.title}>
             <Card.Title>{book.title}</Card.Title>
+            <Card.Image source={{ uri: book.book_cover }} />
           </Card>
         );
       })}
