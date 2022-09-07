@@ -6,12 +6,17 @@ import { deleteUser, getAuth } from "firebase/auth";
 
 const auth = getAuth();
 
-export default function Profile() {
+const Profile: React.FC<StackScreenProps<any>> = ({ navigation }) => {{
   const { user } = useAuthentication();
 
   return (
     <View style={styles.container}>
       <Text>Welcome {user?.email}!</Text>
+      <Button
+        title="My Bookshelf"
+        style={styles.button}
+        onPress={() => {navigation.navigate("BookShelf")}}
+      />
 
       <Button
         title="DELETE ACCOUNT"
@@ -30,7 +35,8 @@ export default function Profile() {
       />
     </View>
   );
-}
+}}
+
 
 const styles = StyleSheet.create({
   container: {
@@ -40,3 +46,5 @@ const styles = StyleSheet.create({
     marginTop: 10,
   },
 });
+
+export default Profile
