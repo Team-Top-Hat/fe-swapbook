@@ -16,7 +16,6 @@ const Profile: React.FC<StackScreenProps<any>> = ({ navigation }) => {
     return (
       <View style={styles.container}>
         <Text>Welcome {user?.email}!</Text>
-        <Text>{currentUser ? currentUser.name : "noname"}</Text>
         <Button
           title="My Bookshelf"
           style={styles.button}

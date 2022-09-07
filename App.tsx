@@ -21,7 +21,13 @@ interface AppUserContext {
 export default function App() {
   const [currentUser, setCurrentUser] = useState({
     avatar_url: "string",
-    bookshelf: [{ ISBN: "string", book_cover: "string", title: "string" }],
+    bookshelf: [
+      {
+        ISBN: "string",
+        book_cover: "https://pictures.abebooks.com/isbn/9781118951309-uk.jpg",
+        title: "string",
+      },
+    ],
     email: "string",
     name: "string",
   });
