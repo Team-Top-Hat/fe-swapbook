@@ -11,41 +11,54 @@ export default function AddBook() {
     author: "",
     isbn: "",
   });
-  const [currentBook, setCurrentBook]: any = React.useState({
-    imageLinks: { thumbnail: "" },
-  });
+
+  const [currentBook, setCurrentBook]: any = React.useState([]);
+
+  const [searchParameters, setSearchParameters] = React.useState([""]);
 
   function submit() {
-    const searchParameters: any[] = [];
-
+    setSearchParameters([""]);
     if (value.title) {
-      searchParameters.push(`title:${value.title.replace(" ", "%20")}`);
+      setSearchParameters([`title:${value.title.replace(" ", "%20")}`]);
     }
     if (value.author) {
-      searchParameters.push(`author:${value.author.replace(" ", "%20")}`);
+      setSearchParameters([
+        ...searchParameters,
+        `author:${value.author.replace(" ", "%20")}`,
+      ]);
     }
     if (value.isbn) {
-      searchParameters.push(`isbn:${value.isbn}`);
+      setSearchParameters([...searchParameters, `isbn:${value.isbn}`]);
     }
-    fetchGoogleBook(searchParameters.join("&")).then((res) => {
-      setCurrentBook(() => res.items[0].volumeInfo);
-    });
+    if (searchParameters) {
+      fetchGoogleBook(searchParameters.join("&")).then((res) => {
+        const bookArr: { title: string; image: string; isbn: string }[] = [];
+        res.items.forEach(function (item: any) {
+          bookArr.push({
+            title: item.volumeInfo.title,
+            image: item.volumeInfo.imageLinks.thumbnail,
+            isbn: item.volumeInfo.industryIdentifiers[0],
+          });
+        });
+        setCurrentBook(() => bookArr);
+      });
+    }
   }
 
   function confirm() {}
-
   return (
     <View style={styles.container}>
-      <Text>test</Text>
+      <Text>Add a book to the bookshelf</Text>
       <View>
         <Card>
-          {currentBook.imageLinks.thumbnail ? (
+          {currentBook[0].title ? (
             <View>
               <Card.Image
                 style={styles.cardImage}
-                source={{ uri: currentBook.imageLinks.thumbnail }}
-              ></Card.Image>
-              <Text>{currentBook.title}</Text>
+                source={{
+                  uri: currentBook[0].image,
+                }}></Card.Image>
+              <Text>{currentBook[0].title}</Text>
             </View>
           ) : null}
         </Card>
@@ -56,24 +69,27 @@ export default function AddBook() {
             autoComplete="off"
             placeholder="Title"
             value={value.title}
-            onChangeText={(text: any) => setValue({ ...value, title: text })}
-          ></TextInput>
+            onChangeText={(text: any) =>
+              setValue({ ...value, title: text })
+            }></TextInput>
         </View>
         <View style={styles.control}>
           <TextInput
             autoComplete="off"
             placeholder="Author"
             value={value.author}
-            onChangeText={(text: any) => setValue({ ...value, author: text })}
-          ></TextInput>
+            onChangeText={(text: any) =>
+              setValue({ ...value, author: text })
+            }></TextInput>
         </View>
         <View style={styles.control}>
           <TextInput
             autoComplete="off"
             placeholder="ISBN"
             value={value.isbn}
-            onChangeText={(text: any) => setValue({ ...value, isbn: text })}
-          ></TextInput>
+            onChangeText={(text: any) =>
+              setValue({ ...value, isbn: text })
+            }></TextInput>
         </View>
         <View>
           <Button title="Submit" onPress={submit} />
