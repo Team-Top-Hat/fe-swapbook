@@ -1,42 +1,48 @@
-import React from "react";
+import React, { useContext } from "react";
 import { StyleSheet, Text, View } from "react-native";
 import { useAuthentication } from "../utils/hooks/useAuthentication";
 import { Button } from "react-native-elements";
 import { deleteUser, getAuth } from "firebase/auth";
+import { StackScreenProps } from "@react-navigation/stack";
+import { UserContext } from "../context/UserContext";
 
 const auth = getAuth();
 
-const Profile: React.FC<StackScreenProps<any>> = ({ navigation }) => {{
-  const { user } = useAuthentication();
+const Profile: React.FC<StackScreenProps<any>> = ({ navigation }) => {
+  {
+    const { user } = useAuthentication();
+    const { currentUser } = useContext(UserContext);
 
-  return (
-    <View style={styles.container}>
-      <Text>Welcome {user?.email}!</Text>
-      <Button
-        title="My Bookshelf"
-        style={styles.button}
-        onPress={() => {navigation.navigate("BookShelf")}}
-      />
+    return (
+      <View style={styles.container}>
+        <Text>Welcome {user?.email}!</Text>
+        <Button
+          title="My Bookshelf"
+          style={styles.button}
+          onPress={() => {
+            navigation.navigate("BookShelf");
+          }}
+        />
 
-      <Button
-        title="DELETE ACCOUNT"
-        style={styles.button}
-        onPress={() => {
-          if (user) {
-            deleteUser(user)
-              .then(() => {
-                console.log("User Deleted.");
-              })
-              .catch((err) => {
-                console.log("error deleting user", err);
-              });
-          }
-        }}
-      />
-    </View>
-  );
-}}
-
+        <Button
+          title="DELETE ACCOUNT"
+          style={styles.button}
+          onPress={() => {
+            if (user) {
+              deleteUser(user)
+                .then(() => {
+                  console.log("User Deleted.");
+                })
+                .catch((err) => {
+                  console.log("error deleting user", err);
+                });
+            }
+          }}
+        />
+      </View>
+    );
+  }
+};
 
 const styles = StyleSheet.create({
   container: {
@@ -47,4 +53,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Profile
+export default Profile;
