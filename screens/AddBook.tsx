@@ -1,5 +1,5 @@
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
-import React from "react";
+import React, { useEffect } from "react";
 import { Card } from "@rneui/themed";
 import { TextInput } from "react-native-gesture-handler";
 import { Button } from "react-native-elements";
@@ -10,13 +10,16 @@ export default function AddBook() {
     title: "",
     author: "",
     isbn: "",
+    error: "",
   });
 
-  const [currentBook, setCurrentBook]: any = React.useState([]);
+  const [currentBook, setCurrentBook]: any = React.useState([
+    { title: "", image: "", isbn: "", error: "" },
+  ]);
 
   const [searchParameters, setSearchParameters] = React.useState([""]);
 
-  function submit() {
+  async function submit() {
     setSearchParameters([""]);
     if (value.title) {
       setSearchParameters([`title:${value.title.replace(" ", "%20")}`]);
@@ -30,28 +33,46 @@ export default function AddBook() {
     if (value.isbn) {
       setSearchParameters([...searchParameters, `isbn:${value.isbn}`]);
     }
-    if (searchParameters) {
-      fetchGoogleBook(searchParameters.join("&")).then((res) => {
-        const bookArr: { title: string; image: string; isbn: string }[] = [];
-        res.items.forEach(function (item: any) {
-          bookArr.push({
-            title: item.volumeInfo.title,
-            image: item.volumeInfo.imageLinks.thumbnail,
-            isbn: item.volumeInfo.industryIdentifiers[0],
-          });
-        });
-        setCurrentBook(() => bookArr);
-      });
-    }
   }
+
+  useEffect(() => {
+    if (searchParameters[0] !== "") {
+      try {
+        fetchGoogleBook(searchParameters.join("&")).then((res) => {
+          const bookArr: {
+            title: string;
+            image: string;
+            isbn: string;
+            error: string;
+          }[] = [];
+          res.items.forEach(function (item: any) {
+            bookArr.push({
+              title: item.volumeInfo.title,
+              image: item.volumeInfo.imageLinks.thumbnail,
+              isbn: item.volumeInfo.industryIdentifiers[0],
+              error: "",
+            });
+          });
+          setCurrentBook(() => bookArr);
+        });
+      } catch (error) {
+        if (error instanceof Error) {
+          setValue({
+            ...value,
+            error: error.message,
+          });
+        }
+      }
+    }
+  }, [searchParameters]);
 
   function confirm() {}
   return (
     <View style={styles.container}>
       <Text>Add a book to the bookshelf</Text>
       <View>
-        <Card>
-          {currentBook[0].title ? (
+        {currentBook[0].title ? (
+          <Card>
             <View>
               <Card.Image
                 style={styles.cardImage}
@@ -60,8 +81,8 @@ export default function AddBook() {
                 }}></Card.Image>
               <Text>{currentBook[0].title}</Text>
             </View>
-          ) : null}
-        </Card>
+          </Card>
+        ) : null}
       </View>
       <View style={styles.controls}>
         <View style={styles.control}>
@@ -121,6 +142,7 @@ const styles = StyleSheet.create({
 
   control: {
     marginTop: 10,
+    marginBottom: 10,
   },
 
   error: {
