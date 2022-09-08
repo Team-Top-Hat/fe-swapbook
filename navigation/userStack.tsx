@@ -5,6 +5,7 @@ import { createStackNavigator } from "@react-navigation/stack";
 import HomeScreen from "../screens/Home";
 import Profile from "../screens/Profile";
 import BookShelf from "../screens/BookShelf";
+import AddBook from "../screens/AddBook";
 
 const Stack = createStackNavigator();
 
@@ -14,7 +15,8 @@ export default function UserStack() {
       <Stack.Navigator>
         <Stack.Screen name="Home" component={HomeScreen} />
         <Stack.Screen name="Profile" component={Profile} />
-        <Stack.Screen name="BookShelf" component={BookShelf}/>
+        <Stack.Screen name="BookShelf" component={BookShelf} />
+        <Stack.Screen name="AddBook" component={AddBook} />
       </Stack.Navigator>
     </NavigationContainer>
   );
