@@ -1,24 +1,27 @@
 import { useAuthentication } from "../utils/hooks/useAuthentication";
 import { StackScreenProps } from "@react-navigation/stack";
 
-import { StyleSheet, Text, View, ScrollView } from 'react-native'
+import { StyleSheet, Text, View, ScrollView, TouchableOpacity} from 'react-native'
 import React, {useContext , useEffect} from 'react'
 import { UserContext } from "../context/UserContext";
 import { Card } from "@rneui/themed";
 import {fetchAllListings} from "../api"
 
+
 const Listings: React.FC<StackScreenProps<any>> = ({ navigation }) => {
     const { currentUser } = useContext(UserContext);
 
     const [listings, setListings] = React.useState([])
+    
 
     useEffect(()=>{
         fetchAllListings().then((res)=>{
             const dataFromApi:{
-                // listing_id: number;
+                // listing_id: number; TBD
                 title: string;
                 cover_url: string;
                 ISBN: string;
+                // tags: string[]; TBD
                 error: string;
             }[] = [];
             res.listings.forEach(function (listing:any){
@@ -41,10 +44,12 @@ const Listings: React.FC<StackScreenProps<any>> = ({ navigation }) => {
         <View style={styles.row}>
       {listings?.map(function (listing:any,i:number) {
         return (
-          <Card key={i}>
+        <TouchableOpacity onPress={() => navigation.navigate("Listing")} key={i}>
+          <Card>
             <Card.Title style={styles.bookTitle}>{listing.title}</Card.Title>
             <Card.Image style={styles.cardImage} source={{ uri: listing.cover_url }} />
           </Card>
+          </TouchableOpacity>
         );
       })}
       </View>
