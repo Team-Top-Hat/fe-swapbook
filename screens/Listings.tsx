@@ -44,7 +44,7 @@ const Listings: React.FC<StackScreenProps<any>> = ({ navigation }) => {
         <View style={styles.row}>
       {listings?.map(function (listing:any,i:number) {
         return (
-        <TouchableOpacity onPress={() => navigation.navigate("Listing")} key={i}>
+        <TouchableOpacity onPress={() => navigation.navigate({name:"Listing", params:{listing:listing}})} key={i}>
           <Card>
             <Card.Title style={styles.bookTitle}>{listing.title}</Card.Title>
             <Card.Image style={styles.cardImage} source={{ uri: listing.cover_url }} />
