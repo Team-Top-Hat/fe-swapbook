@@ -19,6 +19,11 @@ const Home: React.FC<StackScreenProps<any>> = ({ navigation }) => {
         onPress={() => navigation.navigate("Profile")}
       />
       <Button
+        title="Listings"
+        style={styles.button}
+        onPress={() => navigation.navigate("Listings")}
+      />
+      <Button
         title="Sign Out"
         style={styles.button}
         onPress={() => signOut(auth)}

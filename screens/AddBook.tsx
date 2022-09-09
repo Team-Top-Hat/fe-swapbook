@@ -111,7 +111,7 @@ export default function AddBook() {
                     uri: "http://upload.wikimedia.org/wikipedia/commons/3/39/Books_Silhouette.svg",
                   }}></Card.Image>
               )}
-              <Text style={styles.booktitle}>{currentBook[index].title}</Text>
+              <Text style={styles.bookTitle}>{currentBook[index].title}</Text>
             </View>
           </Card>
         ) : null}
@@ -186,7 +186,7 @@ const styles = StyleSheet.create({
     resizeMode: "contain",
   },
 
-  booktitle: {
+  bookTitle: {
     width: 150,
   },
 
