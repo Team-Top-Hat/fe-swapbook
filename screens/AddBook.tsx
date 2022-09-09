@@ -121,7 +121,6 @@ export default function AddBook() {
           style={styles.dropdown}
           placeholderStyle={styles.placeholderStyle}
           selectedTextStyle={styles.selectedTextStyle}
-          inputSearchStyle={styles.inputSearchStyle}
           data={currentBook}
           disable={isDisabled}
           labelField={"title"}
@@ -234,10 +233,6 @@ const styles = StyleSheet.create({
   },
   textItem: {
     flex: 1,
-    fontSize: 16,
-  },
-  inputSearchStyle: {
-    height: 40,
     fontSize: 16,
   },
   placeholderStyle: {
