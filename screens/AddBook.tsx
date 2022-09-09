@@ -21,9 +21,11 @@ export default function AddBook() {
   const [searchParameters, setSearchParameters] = React.useState([""]);
   const [index, setIndex]: any = React.useState([0]);
   const [dropdownValue, setDropDownValue] = React.useState(null);
+  const [isDisabled, setIsDisabled] = React.useState(true);
 
   async function submit() {
     const parameters: string[] = [];
+    setIsDisabled(true);
     if (value.title) {
       parameters.push(`intitle:${value.title.replace(" ", "%20")}`);
     }
@@ -66,6 +68,7 @@ export default function AddBook() {
           setCurrentBook(() => bookArr);
           setDropDownValue(null);
           setIndex(0);
+          setIsDisabled(false);
         });
       } catch (error) {
         if (error instanceof Error) {
@@ -120,6 +123,7 @@ export default function AddBook() {
           selectedTextStyle={styles.selectedTextStyle}
           inputSearchStyle={styles.inputSearchStyle}
           data={currentBook}
+          disable={isDisabled}
           labelField={"title"}
           valueField={"isbn"}
           placeholder={currentBook[0].title}
