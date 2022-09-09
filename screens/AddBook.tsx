@@ -14,7 +14,7 @@ export default function AddBook() {
   });
 
   const [currentBook, setCurrentBook]: any = React.useState([
-    { title: "", image: "", isbn: "", error: "" },
+    { title: "", image: "", isbn: "" },
   ]);
 
   const [searchParameters, setSearchParameters] = React.useState([""]);
@@ -46,13 +46,21 @@ export default function AddBook() {
             error: string;
           }[] = [];
           res.items.forEach(function (item: any) {
-            bookArr.push({
-              title: item.volumeInfo.title,
-              image: item.volumeInfo.imageLinks.thumbnail,
-              isbn: item.volumeInfo.industryIdentifiers[0],
-              error: "",
-            });
+            console.log(item);
+            if (item.volumeInfo.printType === "BOOK") {
+              bookArr.push({
+                title: item.volumeInfo.title,
+                image: item.volumeInfo.imageLinks
+                  ? item.volumeInfo.imageLinks.thumbnail
+                  : "no image available",
+                isbn: item.volumeInfo.industryIdentifiers
+                  ? item.volumeInfo.industryIdentifiers[0]
+                  : "unknown",
+                error: "",
+              });
+            }
           });
+          console.log(bookArr);
           setCurrentBook(() => bookArr);
         });
       } catch (error) {
@@ -74,11 +82,18 @@ export default function AddBook() {
         {currentBook[0].title ? (
           <Card>
             <View>
-              <Card.Image
-                style={styles.cardImage}
-                source={{
-                  uri: currentBook[0].image,
-                }}></Card.Image>
+              {currentBook[0].image.startsWith("http") ? (
+                <Card.Image
+                  style={styles.cardImage}
+                  source={{
+                    uri: currentBook[0].image,
+                  }}></Card.Image>
+              ) : (
+                <Card.Image
+                  source={{
+                    uri: "http://upload.wikimedia.org/wikipedia/commons/3/39/Books_Silhouette.svg",
+                  }}></Card.Image>
+              )}
               <Text>{currentBook[0].title}</Text>
             </View>
           </Card>
