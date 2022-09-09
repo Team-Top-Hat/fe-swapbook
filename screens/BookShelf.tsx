@@ -1,12 +1,10 @@
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import React, { useContext } from "react";
 import { StackScreenProps } from "@react-navigation/stack";
 import { Card } from "@rneui/themed";
-import { getAuth } from "firebase/auth";
 import { useAuthentication } from "../utils/hooks/useAuthentication";
 import { UserContext } from "../context/UserContext";
 
-const auth = getAuth();
 const BookShelf: React.FC<StackScreenProps<any>> = ({ navigation }) => {
   const { user } = useAuthentication();
   const { currentUser } = useContext(UserContext);
@@ -14,6 +12,12 @@ const BookShelf: React.FC<StackScreenProps<any>> = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <Text>{user?.email} BookShelf!</Text>
+      <TouchableOpacity onPress={() => navigation.navigate("AddBook")}>
+        <Card key={"addbook"}>
+          <Card.Title>{"Add Book"}</Card.Title>
+          <Text>&#x2795;</Text>
+        </Card>
+      </TouchableOpacity>
       {currentUser?.bookshelf.map(function (book) {
         return (
           <Card key={book.title}>
