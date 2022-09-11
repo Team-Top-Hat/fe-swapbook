@@ -16,29 +16,31 @@ const Profile: React.FC<StackScreenProps<any>> = ({ navigation }) => {
     return (
       <View style={styles.container}>
         <Text>Welcome {user?.email}!</Text>
-        <Button
-          title="My Bookshelf"
-          style={styles.button}
-          onPress={() => {
-            navigation.navigate("BookShelf");
-          }}
-        />
+        <View style={styles.buttons}>
+          <Button
+            title="My Bookshelf"
+            containerStyle={{ margin: 10 }}
+            onPress={() => {
+              navigation.navigate("BookShelf");
+            }}
+          />
 
-        <Button
-          title="DELETE ACCOUNT"
-          style={styles.button}
-          onPress={() => {
-            if (user) {
-              deleteUser(user)
-                .then(() => {
-                  console.log("User Deleted.");
-                })
-                .catch((err) => {
-                  console.log("error deleting user", err);
-                });
-            }
-          }}
-        />
+          <Button
+            title="DELETE ACCOUNT"
+            containerStyle={{ margin: 10, marginTop: 50 }}
+            onPress={() => {
+              if (user) {
+                deleteUser(user)
+                  .then(() => {
+                    console.log("User Deleted.");
+                  })
+                  .catch((err) => {
+                    console.log("error deleting user", err);
+                  });
+              }
+            }}
+          />
+        </View>
       </View>
     );
   }
@@ -47,9 +49,14 @@ const Profile: React.FC<StackScreenProps<any>> = ({ navigation }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: "#fff",
+    alignItems: "center",
+    justifyContent: "center",
   },
-  button: {
-    marginTop: 10,
+  buttons: {
+    marginTop: 20,
+    flexDirection: "column",
+    justifyContent: "center",
   },
 });
 

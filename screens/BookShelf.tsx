@@ -12,10 +12,12 @@ const BookShelf: React.FC<StackScreenProps<any>> = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <Text>{user?.email} BookShelf!</Text>
-      <TouchableOpacity onPress={() => navigation.navigate("AddBook")}>
+      <TouchableOpacity
+        onPress={() => navigation.navigate("AddBook")}
+        style={styles.card}>
         <Card key={"addbook"}>
           <Card.Title>{"Add Book"}</Card.Title>
-          <Text>&#x2795;</Text>
+          <Text style={{ textAlign: "center", fontSize: 45 }}>&#x2795;</Text>
         </Card>
       </TouchableOpacity>
       {currentUser?.bookshelf.map(function (book) {
@@ -39,7 +41,12 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
+
   button: {
     marginTop: 10,
+  },
+
+  card: {
+    width: 140,
   },
 });
