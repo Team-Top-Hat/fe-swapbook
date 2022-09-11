@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import { StyleSheet, Text, View } from "react-native";
 import { useAuthentication } from "../utils/hooks/useAuthentication";
-import { Button } from "react-native-elements";
+import { Button } from "@rneui/themed";
 import { deleteUser, getAuth } from "firebase/auth";
 import { StackScreenProps } from "@react-navigation/stack";
 import { UserContext } from "../context/UserContext";
