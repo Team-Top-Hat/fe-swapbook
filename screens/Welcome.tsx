@@ -6,9 +6,14 @@ import { Button } from "@rneui/themed";
 const WelcomeScreen: React.FC<StackScreenProps<any>> = ({ navigation }) => {
   return (
     <View style={styles.container}>
-      <Text>Welcome screen!</Text>
+      <Text>Welcome!</Text>
 
       <View style={styles.buttons}>
+        <Button
+          title="Listings"
+          containerStyle={styles.button}
+          onPress={() => navigation.navigate("Listings")}
+        />
         <Button
           title="Sign in"
           buttonStyle={styles.button}
