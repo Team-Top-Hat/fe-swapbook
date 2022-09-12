@@ -6,6 +6,8 @@ import HomeScreen from "../screens/Home";
 import Profile from "../screens/Profile";
 import BookShelf from "../screens/BookShelf";
 import AddBook from "../screens/AddBook";
+import Listings from "../screens/Listings";
+import Listing from "../screens/Listing";
 
 const Stack = createStackNavigator();
 
@@ -17,6 +19,8 @@ export default function UserStack() {
         <Stack.Screen name="Profile" component={Profile} />
         <Stack.Screen name="BookShelf" component={BookShelf} />
         <Stack.Screen name="AddBook" component={AddBook} />
+        <Stack.Screen name="Listings" component={Listings}/>
+        <Stack.Screen name="Listing" component={Listing}/>
       </Stack.Navigator>
     </NavigationContainer>
   );

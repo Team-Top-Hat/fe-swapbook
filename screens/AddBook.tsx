@@ -2,7 +2,7 @@ import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import React, { useEffect } from "react";
 import { Card } from "@rneui/themed";
 import { TextInput } from "react-native-gesture-handler";
-import { Button } from "react-native-elements";
+import { Button } from "@rneui/themed";
 import { Dropdown } from "react-native-element-dropdown";
 import { fetchGoogleBook } from "../api";
 
@@ -111,7 +111,7 @@ export default function AddBook() {
                     uri: "http://upload.wikimedia.org/wikipedia/commons/3/39/Books_Silhouette.svg",
                   }}></Card.Image>
               )}
-              <Text style={styles.booktitle}>{currentBook[index].title}</Text>
+              <Text style={styles.bookTitle}>{currentBook[index].title}</Text>
             </View>
           </Card>
         ) : null}
@@ -186,7 +186,7 @@ const styles = StyleSheet.create({
     resizeMode: "contain",
   },
 
-  booktitle: {
+  bookTitle: {
     width: 150,
   },
 

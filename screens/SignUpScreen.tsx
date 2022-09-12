@@ -1,7 +1,7 @@
 import React from "react";
 import { StyleSheet, Text, View, TextInput } from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome";
-import { Button } from "react-native-elements";
+import { Button } from "@rneui/themed";
 import { StackScreenProps } from "@react-navigation/stack";
 
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
