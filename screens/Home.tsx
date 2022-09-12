@@ -20,7 +20,7 @@ const Home: React.FC<StackScreenProps<any>> = ({ navigation }) => {
           onPress={() => navigation.navigate("Listings")}
         />
         <Button
-          title="Trade History"
+          title="Swap History"
           containerStyle={{ margin: 10 }}
           onPress={() => navigation.navigate("SwapHistory")}
         />

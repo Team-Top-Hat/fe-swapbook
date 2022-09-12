@@ -49,7 +49,6 @@ const Listings: React.FC<StackScreenProps<any>> = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
-      <Text>Listings</Text>
       <ScrollView>
         <View style={styles.row}>
           {listings?.map(function (listing: any, i: number) {
@@ -61,8 +60,7 @@ const Listings: React.FC<StackScreenProps<any>> = ({ navigation }) => {
                     params: { listing: listing },
                   })
                 }
-                key={i}
-              >
+                key={i}>
                 <Card>
                   <Card.Title style={styles.bookTitle}>
                     {listing.title}

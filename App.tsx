@@ -1,3 +1,4 @@
+import "react-native-gesture-handler";
 import React, { useState } from "react";
 import { ThemeProvider } from "@rneui/themed";
 import "./config/firebase";
