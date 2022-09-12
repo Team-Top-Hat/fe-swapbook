@@ -163,8 +163,16 @@ export default function AddBook() {
             }></TextInput>
         </View>
         <View style={styles.buttons}>
-          <Button title="Submit" onPress={submit} />
-          <Button title="Confirm" onPress={confirm} />
+          <Button
+            title="Submit"
+            onPress={submit}
+            containerStyle={{ margin: 10 }}
+          />
+          <Button
+            title="Confirm"
+            onPress={confirm}
+            containerStyle={{ margin: 10 }}
+          />
         </View>
       </View>
     </View>

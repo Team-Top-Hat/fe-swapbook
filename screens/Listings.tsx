@@ -47,7 +47,12 @@ const Listings: React.FC<StackScreenProps<any>> = ({ navigation }) => {
     });
   }, []);
 
-  if (isLoading) return <ActivityIndicator />;
+  if (isLoading)
+    return (
+      <View style={[styles.container]}>
+        <ActivityIndicator size="large" />
+      </View>
+    );
   return (
     <View style={styles.container}>
       <ScrollView>
