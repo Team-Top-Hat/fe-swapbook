@@ -26,8 +26,7 @@ const Listing: React.FC<StackScreenProps<any>> = ({
           })
         }
         title="Trade"
-        style={{ margin: 20 }}
-      ></Button>
+        style={{ margin: 20 }}></Button>
     </View>
   );
 };
@@ -43,7 +42,7 @@ const styles = StyleSheet.create({
   },
 
   coverImage: {
-    height: 300,
+    height: 250,
     width: 150,
   },
 });
