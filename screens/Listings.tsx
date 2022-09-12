@@ -1,20 +1,19 @@
-import { useAuthentication } from "../utils/hooks/useAuthentication";
 import { StackScreenProps } from "@react-navigation/stack";
 
 import {
   StyleSheet,
-  Text,
   View,
   ScrollView,
   TouchableOpacity,
+  ActivityIndicator,
 } from "react-native";
-import React, { useContext, useEffect } from "react";
+import React, { useEffect } from "react";
 import { UserContext } from "../context/UserContext";
 import { Card } from "@rneui/themed";
 import { fetchAllListings } from "../api";
 
 const Listings: React.FC<StackScreenProps<any>> = ({ navigation }) => {
-  const { currentUser } = useContext(UserContext);
+  const [isLoading, setIsLoading] = React.useState(true);
 
   const [listings, setListings] = React.useState([
     {
@@ -44,9 +43,11 @@ const Listings: React.FC<StackScreenProps<any>> = ({ navigation }) => {
         });
       });
       setListings(dataFromApi);
+      setIsLoading(false);
     });
   }, []);
 
+  if (isLoading) return <ActivityIndicator />;
   return (
     <View style={styles.container}>
       <ScrollView>
