@@ -20,6 +20,11 @@ const Home: React.FC<StackScreenProps<any>> = ({ navigation }) => {
           onPress={() => navigation.navigate("Listings")}
         />
         <Button
+          title="Trade History"
+          containerStyle={{ margin: 10 }}
+          onPress={() => navigation.navigate("TradeHistory")}
+        />
+        <Button
           title="Profile"
           containerStyle={{ margin: 10 }}
           onPress={() => navigation.navigate("Profile")}
@@ -45,6 +50,7 @@ const styles = StyleSheet.create({
     marginTop: 20,
     flexDirection: "row",
     justifyContent: "center",
+    flexWrap: "wrap",
   },
 });
 

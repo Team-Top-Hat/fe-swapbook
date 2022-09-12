@@ -6,10 +6,10 @@ export function fetchGoogleBook(searchParameters: string) {
   });
 }
 
-export function fetchAllListings(){
-  return fetch(
-    `https://powerful-foal-sweater.cyclic.app/api/listings`
-  ).then((response) => {
-    return response.json();
-  });
+export function fetchAllListings() {
+  return fetch(`https://powerful-foal-sweater.cyclic.app/api/listings`).then(
+    (response) => {
+      return response.json();
+    }
+  );
 }

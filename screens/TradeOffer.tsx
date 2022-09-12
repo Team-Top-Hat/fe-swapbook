@@ -1,5 +1,5 @@
 import { StyleSheet, Text, View } from "react-native";
-import React, { useContext, useEffect } from "react";
+import React, { useContext } from "react";
 import { Card, Button } from "@rneui/themed";
 import { UserContext } from "../context/UserContext";
 import { Dropdown } from "react-native-element-dropdown";
