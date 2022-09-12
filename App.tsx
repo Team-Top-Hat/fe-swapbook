@@ -1,10 +1,9 @@
-import { StyleSheet, Text, View } from "react-native";
-
 import React, { useState } from "react";
-import { ThemeProvider } from "react-native-elements";
+import { ThemeProvider } from "@rneui/themed";
 import "./config/firebase";
 import RootNavigation from "./navigation";
 import { UserContext } from "./context/UserContext";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 interface AppBookShelf {
   ISBN: string;

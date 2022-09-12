@@ -1,9 +1,9 @@
 import { StyleSheet, Text, View, Image } from "react-native";
 import React from "react";
+import { Button } from "@rneui/base";
 
 const Listing = ({ route }: any) => {
   const currentListing = route.params.listing;
-  console.log(currentListing.cover_url);
   return (
     <View style={styles.container}>
       <Text>{currentListing.title}</Text>
@@ -13,6 +13,7 @@ const Listing = ({ route }: any) => {
           uri: currentListing.cover_url,
         }}
       />
+      <Button title="Trade" style={{ margin: 20 }}></Button>
     </View>
   );
 };
@@ -28,7 +29,7 @@ const styles = StyleSheet.create({
   },
 
   coverImage: {
-    height: 500,
-    width: 300,
+    height: 300,
+    width: 150,
   },
 });
