@@ -3,7 +3,6 @@ import { ThemeProvider } from "@rneui/themed";
 import "./config/firebase";
 import RootNavigation from "./navigation";
 import { UserContext } from "./context/UserContext";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 
 interface AppBookShelf {
   ISBN: string;
@@ -25,6 +24,12 @@ export default function App() {
         ISBN: "9781118951309",
         book_cover: "https://pictures.abebooks.com/isbn/9781118951309-uk.jpg",
         title: "Coding for Dummies",
+      },
+      {
+        ISBN: "0241984750",
+        book_cover:
+          "https://upload.wikimedia.org/wikipedia/commons/thumb/8/89/The_Catcher_in_the_Rye_%281951%2C_first_edition_cover%29.jpg/330px-The_Catcher_in_the_Rye_%281951%2C_first_edition_cover%29.jpg",
+        title: "The Catcher in the Rye",
       },
     ],
     email: "string",

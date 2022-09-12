@@ -8,6 +8,7 @@ import BookShelf from "../screens/BookShelf";
 import AddBook from "../screens/AddBook";
 import Listings from "../screens/Listings";
 import Listing from "../screens/Listing";
+import TradeOffer from "../screens/TradeOffer";
 
 const Stack = createStackNavigator();
 
@@ -19,8 +20,9 @@ export default function UserStack() {
         <Stack.Screen name="Profile" component={Profile} />
         <Stack.Screen name="BookShelf" component={BookShelf} />
         <Stack.Screen name="AddBook" component={AddBook} />
-        <Stack.Screen name="Listings" component={Listings}/>
-        <Stack.Screen name="Listing" component={Listing}/>
+        <Stack.Screen name="Listings" component={Listings} />
+        <Stack.Screen name="Listing" component={Listing} />
+        <Stack.Screen name="TradeOffer" component={TradeOffer} />
       </Stack.Navigator>
     </NavigationContainer>
   );
