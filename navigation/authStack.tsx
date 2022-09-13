@@ -32,14 +32,11 @@ export default function AuthStack() {
           options={({ route }) => ({
             headerTitle: getHeaderTitle(route),
             drawerItemStyle: { height: 0 },
-            headerStyle: {
-              backgroundColor: "orange",
-            },
           })}
         />
         <Drawer.Screen name="Listings" component={Listings} />
         <Drawer.Screen name="Sign In" component={SignInScreen} />
-        <Drawer.Screen name="Sign Up" component={SignOutScreen} />;
+        <Drawer.Screen name="Sign Up" component={SignOutScreen} />
       </Drawer.Navigator>
     </NavigationContainer>
   );

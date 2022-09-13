@@ -23,6 +23,7 @@ const Drawer = createDrawerNavigator();
 function ScreenNav() {
   return (
     <Stack.Navigator screenOptions={{ headerShown: false }}>
+      <Stack.Screen name="Listings" component={Listings} />
       <Stack.Screen name="AddBook" component={AddBook} />
       <Stack.Screen name="Listing" component={Listing} />
       <Stack.Screen name="TradeOffer" component={TradeOffer} />
