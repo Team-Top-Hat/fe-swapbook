@@ -15,6 +15,7 @@ import Swap from "../screens/swaps/Swap";
 import SwapAccepted from "../screens/swaps/SwapAccepted";
 import PostListing from "../screens/listings/PostListing";
 
+import { UserContext } from "../../src/context/UserContext";
 import { getHeaderTitle } from "../utils/getHeaderTitle";
 
 const Stack = createStackNavigator();
@@ -34,37 +35,70 @@ function ScreenNav() {
 }
 
 export default function UserStack() {
+  interface AppBookShelf {
+    ISBN: string;
+    book_cover: string;
+    title: string;
+  }
+  interface AppUserContext {
+    avatar_url: string;
+    bookshelf: AppBookShelf[];
+    email: string;
+    name: string;
+  }
+
+  const [currentUser, setCurrentUser] = React.useState({
+    avatar_url: "string",
+    bookshelf: [
+      {
+        ISBN: "9781118951309",
+        book_cover: "https://pictures.abebooks.com/isbn/9781118951309-uk.jpg",
+        title: "Coding for Dummies",
+      },
+      {
+        ISBN: "0241984750",
+        book_cover:
+          "https://upload.wikimedia.org/wikipedia/commons/thumb/8/89/The_Catcher_in_the_Rye_%281951%2C_first_edition_cover%29.jpg/330px-The_Catcher_in_the_Rye_%281951%2C_first_edition_cover%29.jpg",
+        title: "The Catcher in the Rye",
+      },
+    ],
+    email: "string",
+    name: "string",
+  });
+
   return (
-    <NavigationContainer>
-      <Drawer.Navigator
-        screenOptions={{ headerStyle: { backgroundColor: "orange" } }}>
-        <Drawer.Screen
-          name="ScreenNav"
-          component={ScreenNav}
-          options={({ route }) => ({
-            headerTitle: getHeaderTitle(route),
-            drawerItemStyle: { height: 0 },
-          })}
-        />
-        <Drawer.Screen name="Home" component={HomeScreen} />
-        <Drawer.Screen name="Profile" component={Profile} />
-        <Drawer.Screen name="Listings" component={Listings} />
-        <Drawer.Screen
-          name="BookShelf"
-          component={BookShelf}
-          options={{ title: "My Bookshelf" }}
-        />
-        <Drawer.Screen
-          name="PostListing"
-          component={PostListing}
-          options={{ title: "New Listing" }}
-        />
-        <Drawer.Screen
-          name="SwapHistory"
-          component={SwapHistory}
-          options={{ title: "Swap History" }}
-        />
-      </Drawer.Navigator>
-    </NavigationContainer>
+    <UserContext.Provider value={{ currentUser, setCurrentUser }}>
+      <NavigationContainer>
+        <Drawer.Navigator
+          screenOptions={{ headerStyle: { backgroundColor: "orange" } }}>
+          <Drawer.Screen
+            name="ScreenNav"
+            component={ScreenNav}
+            options={({ route }) => ({
+              headerTitle: getHeaderTitle(route),
+              drawerItemStyle: { height: 0 },
+            })}
+          />
+          <Drawer.Screen name="Home" component={HomeScreen} />
+          <Drawer.Screen name="Profile" component={Profile} />
+          <Drawer.Screen name="Listings" component={Listings} />
+          <Drawer.Screen
+            name="BookShelf"
+            component={BookShelf}
+            options={{ title: "My Bookshelf" }}
+          />
+          <Drawer.Screen
+            name="PostListing"
+            component={PostListing}
+            options={{ title: "New Listing" }}
+          />
+          <Drawer.Screen
+            name="SwapHistory"
+            component={SwapHistory}
+            options={{ title: "Swap History" }}
+          />
+        </Drawer.Navigator>
+      </NavigationContainer>
+    </UserContext.Provider>
   );
 }

@@ -13,3 +13,14 @@ export function fetchAllListings() {
     }
   );
 }
+
+export function getUser(key: string) {
+  return fetch(`https://alert-cow-loincloth.cyclic.app/api/use`, {
+    method: "GET",
+    headers: {
+      token: key,
+    },
+  }).then((response) => {
+    return response.json();
+  });
+}
