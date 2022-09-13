@@ -1,4 +1,5 @@
 import { StackScreenProps } from "@react-navigation/stack";
+import { useAuthentication } from "../../utils/hooks/useAuthentication";
 
 import {
   StyleSheet,
@@ -6,15 +7,15 @@ import {
   ScrollView,
   TouchableOpacity,
   ActivityIndicator,
+  Dimensions,
 } from "react-native";
 import React, { useEffect } from "react";
-import { UserContext } from "../../context/UserContext";
 import { Card } from "@rneui/themed";
-import { fetchAllListings } from "../../api";
+import { fetchAllListings, fetchAllListingsnon } from "../../api";
 
 const Listings: React.FC<StackScreenProps<any>> = ({ navigation }) => {
+  const { user }: any = useAuthentication();
   const [isLoading, setIsLoading] = React.useState(true);
-
   const [listings, setListings] = React.useState([
     {
       title: "",
@@ -25,13 +26,14 @@ const Listings: React.FC<StackScreenProps<any>> = ({ navigation }) => {
   ]);
 
   useEffect(() => {
-    fetchAllListings().then((res) => {
+    (user
+      ? fetchAllListings(user.stsTokenManager.accessToken)
+      : fetchAllListingsnon()
+    ).then((res) => {
       const dataFromApi: {
-        // listing_id: number; TBD
         title: string;
         cover_url: string;
         ISBN: string;
-        // tags: string[]; TBD
         error: string;
       }[] = [];
       res.listings.forEach(function (listing: any) {
@@ -68,13 +70,15 @@ const Listings: React.FC<StackScreenProps<any>> = ({ navigation }) => {
                 }
                 key={i}>
                 <Card>
-                  <Card.Title style={styles.bookTitle}>
-                    {listing.title}
-                  </Card.Title>
-                  <Card.Image
-                    style={styles.cardImage}
-                    source={{ uri: listing.cover_url }}
-                  />
+                  <View style={styles.cardContent}>
+                    <View style={styles.text}>
+                      <Card.Title>{listing.title}</Card.Title>
+                    </View>
+                    <Card.Image
+                      style={styles.image}
+                      source={{ uri: listing.cover_url }}
+                    />
+                  </View>
                 </Card>
               </TouchableOpacity>
             );
@@ -93,6 +97,8 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
     alignItems: "center",
     justifyContent: "center",
+    flexDirection: "row",
+    flexWrap: "wrap",
   },
 
   row: {
@@ -101,13 +107,20 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
 
-  cardImage: {
-    width: 140,
-    height: 180,
-    resizeMode: "contain",
+  cardContent: {
+    width: Dimensions.get("window").width / 3,
+    justifyContent: "space-around",
+    alignItems: "center",
+    height: Dimensions.get("window").width / 2,
   },
 
-  bookTitle: {
-    width: 140,
+  image: {
+    width: Dimensions.get("window").width / 4,
+    resizeMode: "contain",
+    marginBottom: 15,
+    marginTop: 30,
+  },
+  text: {
+    marginTop: 15,
   },
 });

@@ -10,12 +10,9 @@ import {
 import React, { useContext } from "react";
 import { StackScreenProps } from "@react-navigation/stack";
 import { Card } from "@rneui/themed";
-import { useAuthentication } from "../../utils/hooks/useAuthentication";
 import { UserContext } from "../../context/UserContext";
-import { FlatList } from "react-native-gesture-handler";
 
 const BookShelf: React.FC<StackScreenProps<any>> = ({ navigation }) => {
-  const { user } = useAuthentication();
   const { currentUser } = useContext(UserContext);
   if (!currentUser) {
     return (
@@ -41,7 +38,7 @@ const BookShelf: React.FC<StackScreenProps<any>> = ({ navigation }) => {
           return (
             <Card key={book.title}>
               <View style={styles.cardContent}>
-                <Card.Title>{book.title}</Card.Title>
+                <Card.Title style={styles.text}>{book.title}</Card.Title>
                 <Card.Image
                   style={styles.image}
                   source={{ uri: book.cover_url }}
@@ -72,12 +69,18 @@ const styles = StyleSheet.create({
 
   cardContent: {
     width: Dimensions.get("window").width / 3,
-    justifyContent: "center",
+    justifyContent: "space-around",
     alignItems: "center",
     height: Dimensions.get("window").width / 2,
   },
 
   image: {
     width: Dimensions.get("window").width / 4,
+    resizeMode: "contain",
+    marginBottom: 15,
+    marginTop: 30,
+  },
+  text: {
+    marginTop: 15,
   },
 });
