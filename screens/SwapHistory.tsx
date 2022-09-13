@@ -8,6 +8,8 @@ const SwapHistory: React.FC<StackScreenProps<any>> = ({ navigation }) => {
   const { currentUser } = useContext(UserContext);
   const [swaps, setSwaps] = useState([
     {
+      user1_email: "email@user1.com",
+      user2_email: "email@user2.com",
       user_id1: "user1",
       user_id2: "user2",
       book1_ISBN: "9781118951309",
@@ -21,6 +23,8 @@ const SwapHistory: React.FC<StackScreenProps<any>> = ({ navigation }) => {
       status: "pending",
     },
     {
+      user1_email: "email@user1.com",
+      user2_email: "email@user2.com",
       user_id1: "user1",
       user_id2: "user2",
       book1_ISBN: "9781118951309",
@@ -53,8 +57,7 @@ const SwapHistory: React.FC<StackScreenProps<any>> = ({ navigation }) => {
                     name: "Swap",
                     params: { swap: swap },
                   })
-            }
-          >
+            }>
             <Card>
               <Text>Status: {swap.status}</Text>
               <Text>
