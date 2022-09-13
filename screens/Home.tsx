@@ -12,15 +12,15 @@ const Home: React.FC<StackScreenProps<any>> = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
-      <Text>Welcome {user?.email}!</Text>
+      <Text style={{ fontSize: 20 }}>Welcome {user?.email}!</Text>
       <View style={styles.buttons}>
         <Button
-          title="Listings"
+          title="Browse Listings"
           containerStyle={{ margin: 10 }}
           onPress={() => navigation.navigate("Listings")}
         />
         <Button
-          title="Swap History"
+          title="View Swap History"
           containerStyle={{ margin: 10 }}
           onPress={() => navigation.navigate("SwapHistory")}
         />
@@ -31,7 +31,7 @@ const Home: React.FC<StackScreenProps<any>> = ({ navigation }) => {
         />
         <Button
           title="Sign Out"
-          containerStyle={{ margin: 10 }}
+          containerStyle={{ margin: 30 }}
           onPress={() => signOut(auth)}
         />
       </View>
@@ -48,7 +48,7 @@ const styles = StyleSheet.create({
   },
   buttons: {
     marginTop: 20,
-    flexDirection: "row",
+    flexDirection: "column",
     justifyContent: "center",
     flexWrap: "wrap",
   },

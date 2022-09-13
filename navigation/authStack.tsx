@@ -26,6 +26,10 @@ export default function AuthStack() {
     <NavigationContainer>
       <Drawer.Navigator
         screenOptions={{ headerStyle: { backgroundColor: "orange" } }}>
+        <Drawer.Screen name="Welcome" component={WelcomeScreen} />
+        <Drawer.Screen name="Listings" component={Listings} />
+        <Drawer.Screen name="Sign In" component={SignInScreen} />
+        <Drawer.Screen name="Sign Up" component={SignOutScreen} />
         <Drawer.Screen
           name="ScreenNav"
           component={ScreenNav}
@@ -34,9 +38,6 @@ export default function AuthStack() {
             drawerItemStyle: { height: 0 },
           })}
         />
-        <Drawer.Screen name="Listings" component={Listings} />
-        <Drawer.Screen name="Sign In" component={SignInScreen} />
-        <Drawer.Screen name="Sign Up" component={SignOutScreen} />
       </Drawer.Navigator>
     </NavigationContainer>
   );
