@@ -2,8 +2,8 @@ import "react-native-gesture-handler";
 import React, { useState } from "react";
 import { ThemeProvider } from "@rneui/themed";
 import "./config/firebase";
-import RootNavigation from "./navigation";
-import { UserContext } from "./context/UserContext";
+import RootNavigation from "./src/navigation";
+import { UserContext } from "./src/context/UserContext";
 
 interface AppBookShelf {
   ISBN: string;
