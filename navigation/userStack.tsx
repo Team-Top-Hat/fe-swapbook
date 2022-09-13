@@ -13,6 +13,7 @@ import TradeOffer from "../screens/TradeOffer";
 import SwapHistory from "../screens/SwapHistory";
 import Swap from "../screens/Swap";
 import SwapAccepted from "../screens/SwapAccepted";
+import PostListing from "../screens/PostListing";
 
 import { getHeaderTitle } from "../utils/getHeaderTitle";
 
@@ -48,6 +49,11 @@ export default function UserStack() {
         <Drawer.Screen name="Home" component={HomeScreen} />
         <Drawer.Screen name="Profile" component={Profile} />
         <Drawer.Screen name="BookShelf" component={BookShelf} />
+        <Drawer.Screen
+          name="PostListing"
+          component={PostListing}
+          options={{ title: "Add Listing" }}
+        />
         <Drawer.Screen
           name="SwapHistory"
           component={SwapHistory}
