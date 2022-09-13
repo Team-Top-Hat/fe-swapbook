@@ -4,6 +4,7 @@ import { useAuthentication } from "../utils/hooks/useAuthentication";
 import { Button } from "@rneui/themed";
 import { signOut, getAuth } from "firebase/auth";
 import { StackScreenProps } from "@react-navigation/stack";
+import { UserContext } from "../../src/context/UserContext";
 
 const auth = getAuth();
 

@@ -2,6 +2,7 @@ import React from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import { createDrawerNavigator } from "@react-navigation/drawer";
+import { useAuthentication } from "../utils/hooks/useAuthentication";
 
 import HomeScreen from "../screens/Home";
 import Profile from "../screens/Profile";
@@ -17,6 +18,7 @@ import PostListing from "../screens/listings/PostListing";
 
 import { UserContext } from "../../src/context/UserContext";
 import { getHeaderTitle } from "../utils/getHeaderTitle";
+import { fetchUser } from "../api";
 
 const Stack = createStackNavigator();
 const Drawer = createDrawerNavigator();
@@ -35,9 +37,11 @@ function ScreenNav() {
 }
 
 export default function UserStack() {
+  const { user }: any = useAuthentication();
+
   interface AppBookShelf {
     ISBN: string;
-    book_cover: string;
+    cover_url: string;
     title: string;
   }
   interface AppUserContext {
@@ -47,24 +51,17 @@ export default function UserStack() {
     name: string;
   }
 
-  const [currentUser, setCurrentUser] = React.useState({
-    avatar_url: "string",
-    bookshelf: [
-      {
-        ISBN: "9781118951309",
-        book_cover: "https://pictures.abebooks.com/isbn/9781118951309-uk.jpg",
-        title: "Coding for Dummies",
-      },
-      {
-        ISBN: "0241984750",
-        book_cover:
-          "https://upload.wikimedia.org/wikipedia/commons/thumb/8/89/The_Catcher_in_the_Rye_%281951%2C_first_edition_cover%29.jpg/330px-The_Catcher_in_the_Rye_%281951%2C_first_edition_cover%29.jpg",
-        title: "The Catcher in the Rye",
-      },
-    ],
-    email: "string",
-    name: "string",
-  });
+  const [currentUser, setCurrentUser] = React.useState<AppUserContext | null>(
+    null
+  );
+
+  React.useEffect(() => {
+    if (user) {
+      fetchUser(user.stsTokenManager.accessToken).then((res) =>
+        setCurrentUser(res.user)
+      );
+    }
+  }, [user]);
 
   return (
     <UserContext.Provider value={{ currentUser, setCurrentUser }}>

@@ -1,7 +1,7 @@
 import { createContext } from "react";
 interface AppBookShelf {
   ISBN: string;
-  book_cover: string;
+  cover_url: string;
   title: string;
 }
 interface AppUserContext {

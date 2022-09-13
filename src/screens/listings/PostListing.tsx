@@ -30,7 +30,7 @@ const PostListing = () => {
     booksFromBookshelf.push({
       index: index,
       ISBN: book.ISBN,
-      book_cover: book.book_cover,
+      book_cover: book.cover_url,
       title: book.title,
     });
   });
@@ -160,6 +160,7 @@ const styles = StyleSheet.create({
   },
   placeholderStyle: {
     fontSize: 16,
+    height: 40,
   },
   selectedTextStyle: {
     fontSize: 16,

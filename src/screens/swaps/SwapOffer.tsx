@@ -21,7 +21,7 @@ const TradeOffer = ({ route }: any) => {
     booksFromBookshelf.push({
       index: index,
       ISBN: book.ISBN,
-      book_cover: book.book_cover,
+      book_cover: book.cover_url,
       title: book.title,
     });
   });

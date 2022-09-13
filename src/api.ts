@@ -14,8 +14,8 @@ export function fetchAllListings() {
   );
 }
 
-export function getUser(key: string) {
-  return fetch(`https://alert-cow-loincloth.cyclic.app/api/use`, {
+export function fetchUser(key: string) {
+  return fetch(`https://alert-cow-loincloth.cyclic.app/api/user`, {
     method: "GET",
     headers: {
       token: key,
