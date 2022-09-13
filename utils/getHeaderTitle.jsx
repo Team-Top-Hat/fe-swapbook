@@ -24,5 +24,7 @@ export function getHeaderTitle(route) {
       return "Swap Confirmation";
     case "Welcome":
       return "Welcome";
+    case "TradeOffer":
+      return "Swap Offer";
   }
 }

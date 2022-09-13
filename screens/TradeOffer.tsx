@@ -37,29 +37,32 @@ const TradeOffer = ({ route }: any) => {
 
   return (
     <View style={styles.container}>
-      <Text>TradeOffer</Text>
-      <Card>
-        <Card.Title style={styles.bookTitle}>{currentListing.title}</Card.Title>
-        <Card.Image
-          style={styles.cardImage}
-          source={{ uri: currentListing.cover_url }}
-        />
-      </Card>
-      <Card>
-        <Card.Title style={styles.bookTitle}>
-          {booksFromBookshelf[index].title}
-        </Card.Title>
-        <Card.Image
-          style={styles.cardImage}
-          source={{ uri: booksFromBookshelf[index].book_cover }}
-        />
-      </Card>
+      <Text style={{ fontSize: 20 }}>Select a swap</Text>
+      <View style={styles.row}>
+        <Card>
+          <Card.Title style={styles.bookTitle}>
+            {currentListing.title}
+          </Card.Title>
+          <Card.Image
+            style={styles.cardImage}
+            source={{ uri: currentListing.cover_url }}
+          />
+        </Card>
+        <Card>
+          <Card.Title style={styles.bookTitle}>
+            {booksFromBookshelf[index].title}
+          </Card.Title>
+          <Card.Image
+            style={styles.cardImage}
+            source={{ uri: booksFromBookshelf[index].book_cover }}
+          />
+        </Card>
+      </View>
       <Dropdown
         style={styles.dropdown}
         placeholderStyle={styles.placeholderStyle}
         selectedTextStyle={styles.selectedTextStyle}
         data={booksFromBookshelf}
-        // disable={isDisabled}
         labelField={"title"}
         valueField={"ISBN"}
         placeholder={booksFromBookshelf[index].title}
@@ -85,18 +88,22 @@ const styles = StyleSheet.create({
   },
 
   cardImage: {
-    width: 140,
-    height: 180,
+    width: 120,
+    height: 160,
     resizeMode: "contain",
   },
 
+  row: {
+    flexDirection: "row",
+  },
+
   bookTitle: {
-    width: 140,
+    width: 120,
   },
 
   dropdown: {
     margin: 16,
-    width: 200,
+    width: 250,
     height: 50,
     backgroundColor: "white",
     borderRadius: 12,
