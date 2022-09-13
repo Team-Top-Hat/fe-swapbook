@@ -23,8 +23,6 @@ const Drawer = createDrawerNavigator();
 function ScreenNav() {
   return (
     <Stack.Navigator screenOptions={{ headerShown: false }}>
-      <Stack.Screen name="Listings" component={Listings} />
-      <Stack.Screen name="Profile" component={Profile} />
       <Stack.Screen name="AddBook" component={AddBook} />
       <Stack.Screen name="Listing" component={Listing} />
       <Stack.Screen name="TradeOffer" component={TradeOffer} />
@@ -37,7 +35,8 @@ function ScreenNav() {
 export default function UserStack() {
   return (
     <NavigationContainer>
-      <Drawer.Navigator>
+      <Drawer.Navigator
+        screenOptions={{ headerStyle: { backgroundColor: "orange" } }}>
         <Drawer.Screen
           name="ScreenNav"
           component={ScreenNav}
@@ -48,11 +47,16 @@ export default function UserStack() {
         />
         <Drawer.Screen name="Home" component={HomeScreen} />
         <Drawer.Screen name="Profile" component={Profile} />
-        <Drawer.Screen name="BookShelf" component={BookShelf} />
+        <Drawer.Screen name="Listings" component={Listings} />
+        <Drawer.Screen
+          name="BookShelf"
+          component={BookShelf}
+          options={{ title: "My Bookshelf" }}
+        />
         <Drawer.Screen
           name="PostListing"
           component={PostListing}
-          options={{ title: "Add Listing" }}
+          options={{ title: "New Listing" }}
         />
         <Drawer.Screen
           name="SwapHistory"
