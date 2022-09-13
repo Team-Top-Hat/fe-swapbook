@@ -6,6 +6,7 @@ import { UserContext } from "../context/UserContext";
 const Swap = ({ route }: any) => {
   const { currentUser } = useContext(UserContext);
   const swap = route.params.swap;
+
   {
     return (
       <View style={styles.container}>
@@ -13,13 +14,15 @@ const Swap = ({ route }: any) => {
           <Card>
             <Card.Image
               style={styles.coverImage}
-              source={{ uri: swap.book1_cover }}></Card.Image>
+              source={{ uri: swap.book1_cover }}
+            ></Card.Image>
           </Card>
           <Text style={{ fontSize: 50 }}>&#8644;</Text>
           <Card>
             <Card.Image
               style={styles.coverImage}
-              source={{ uri: swap.book2_cover }}></Card.Image>
+              source={{ uri: swap.book2_cover }}
+            ></Card.Image>
           </Card>
         </View>
         {currentUser ? (

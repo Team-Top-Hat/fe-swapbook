@@ -12,6 +12,7 @@ import Listing from "../screens/Listing";
 import TradeOffer from "../screens/TradeOffer";
 import SwapHistory from "../screens/SwapHistory";
 import Swap from "../screens/Swap";
+import SwapAccepted from "../screens/SwapAccepted";
 
 import { getHeaderTitle } from "../utils/getHeaderTitle";
 
@@ -26,8 +27,8 @@ function ScreenNav() {
       <Stack.Screen name="AddBook" component={AddBook} />
       <Stack.Screen name="Listing" component={Listing} />
       <Stack.Screen name="TradeOffer" component={TradeOffer} />
-      <Stack.Screen name="SwapHistory" component={SwapHistory} />
       <Stack.Screen name="Swap" component={Swap} />
+      <Stack.Screen name="SwapAccepted" component={SwapAccepted} />
     </Stack.Navigator>
   );
 }
@@ -47,6 +48,11 @@ export default function UserStack() {
         <Drawer.Screen name="Home" component={HomeScreen} />
         <Drawer.Screen name="Profile" component={Profile} />
         <Drawer.Screen name="BookShelf" component={BookShelf} />
+        <Drawer.Screen
+          name="SwapHistory"
+          component={SwapHistory}
+          options={{ title: "Swap History" }}
+        />
       </Drawer.Navigator>
     </NavigationContainer>
   );

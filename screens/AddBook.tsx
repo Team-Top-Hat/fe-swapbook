@@ -36,7 +36,6 @@ export default function AddBook() {
       parameters.push(`isbn:${value.isbn.replace("-", "").replace(" ", "")}`);
     }
     setSearchParameters(() => parameters);
-    console.log(searchParameters);
   }
 
   useEffect(() => {
@@ -104,12 +103,14 @@ export default function AddBook() {
                   style={styles.cardImage}
                   source={{
                     uri: currentBook[index].image,
-                  }}></Card.Image>
+                  }}
+                ></Card.Image>
               ) : (
                 <Card.Image
                   source={{
                     uri: "http://upload.wikimedia.org/wikipedia/commons/3/39/Books_Silhouette.svg",
-                  }}></Card.Image>
+                  }}
+                ></Card.Image>
               )}
               <Text style={styles.bookTitle}>{currentBook[index].title}</Text>
             </View>
@@ -140,27 +141,24 @@ export default function AddBook() {
             autoComplete="off"
             placeholder="Title"
             value={value.title}
-            onChangeText={(text: any) =>
-              setValue({ ...value, title: text })
-            }></TextInput>
+            onChangeText={(text: any) => setValue({ ...value, title: text })}
+          ></TextInput>
         </View>
         <View style={styles.control}>
           <TextInput
             autoComplete="off"
             placeholder="Author"
             value={value.author}
-            onChangeText={(text: any) =>
-              setValue({ ...value, author: text })
-            }></TextInput>
+            onChangeText={(text: any) => setValue({ ...value, author: text })}
+          ></TextInput>
         </View>
         <View style={styles.control}>
           <TextInput
             autoComplete="off"
             placeholder="ISBN"
             value={value.isbn}
-            onChangeText={(text: any) =>
-              setValue({ ...value, isbn: text })
-            }></TextInput>
+            onChangeText={(text: any) => setValue({ ...value, isbn: text })}
+          ></TextInput>
         </View>
         <View style={styles.buttons}>
           <Button
