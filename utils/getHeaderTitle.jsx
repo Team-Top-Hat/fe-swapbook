@@ -6,6 +6,8 @@ export function getHeaderTitle(route) {
   switch (routeName) {
     case "Listings":
       return "Listings";
+    case "Listing":
+      return "Listing";
     case "Profile":
       return "My profile";
     case "Account":
