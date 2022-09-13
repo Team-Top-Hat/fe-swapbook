@@ -10,6 +10,14 @@ const PostListing = () => {
   const [dropdownValue, setDropDownValue] = React.useState(null);
   const { currentUser } = useContext(UserContext);
   const [index, setIndex]: any = React.useState(0);
+  const [dropdownCondition, setDropdownCondition] = React.useState(null);
+  const [conditions] = React.useState([
+    { label: "As New", value: 1 },
+    { label: "Very Good", value: 2 },
+    { label: "Good", value: 3 },
+    { label: "Fair", value: 4 },
+    { label: "Poor", value: 5 },
+  ]);
 
   const booksFromBookshelf: {
     index: number;
@@ -36,11 +44,20 @@ const PostListing = () => {
     );
   };
 
+  const renderCondition = (item: any) => {
+    return (
+      <View style={styles.item}>
+        <Text style={styles.textItem}>{item.label}</Text>
+        {item.value === dropdownCondition}
+      </View>
+    );
+  };
+
   function submit() {}
 
   return (
     <View style={styles.container}>
-      <Text>PostListing</Text>
+      <Text style={{ fontSize: 20 }}>Post a listing</Text>
       <View>
         {booksFromBookshelf[index].title ? (
           <Card>
@@ -71,7 +88,6 @@ const PostListing = () => {
         placeholderStyle={styles.placeholderStyle}
         selectedTextStyle={styles.selectedTextStyle}
         data={booksFromBookshelf}
-        // disable={isDisabled}
         labelField={"title"}
         valueField={"ISBN"}
         placeholder={booksFromBookshelf[index].title}
@@ -80,6 +96,19 @@ const PostListing = () => {
           setIndex(item.index);
         }}
         renderItem={renderItem}
+      />
+      <Dropdown
+        style={styles.dropdown}
+        placeholderStyle={styles.placeholderStyle}
+        selectedTextStyle={styles.selectedTextStyle}
+        placeholder={"Select Condition"}
+        data={conditions}
+        labelField={"label"}
+        valueField={"value"}
+        onChange={(item) => {
+          setDropdownCondition(item.value);
+        }}
+        renderItem={renderCondition}
       />
       <Button title="Submit" onPress={submit} containerStyle={{ margin: 10 }} />
     </View>

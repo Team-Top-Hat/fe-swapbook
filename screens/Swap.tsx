@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, View, TextInput } from "react-native";
 import { Card, Button } from "@rneui/themed";
 import { UserContext } from "../context/UserContext";
 
@@ -32,6 +32,14 @@ const Swap = ({ route }: any) => {
               <Text>
                 For {swap.user_id2}'s {swap.book2_title}
               </Text>
+            </View>
+            <View>
+              <TextInput
+                autoComplete="off"
+                placeholder="Contact Email"
+                value=""
+                onChangeText={() => {}}
+              ></TextInput>
             </View>
             <View style={styles.buttons}>
               <Button containerStyle={{ margin: 10 }} title="Accept"></Button>

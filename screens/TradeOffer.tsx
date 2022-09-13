@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, View, TextInput } from "react-native";
 import React, { useContext } from "react";
 import { Card, Button } from "@rneui/themed";
 import { UserContext } from "../context/UserContext";
@@ -72,6 +72,12 @@ const TradeOffer = ({ route }: any) => {
         }}
         renderItem={renderItem}
       />
+      <TextInput
+        autoComplete="off"
+        placeholder="Contact Email"
+        value=""
+        onChangeText={() => {}}
+      ></TextInput>
       <Button title="Submit" onPress={() => {}}></Button>
     </View>
   );
