@@ -21,18 +21,16 @@ const SwapAccepted = ({ route }: any) => {
       <Text style={{ fontSize: 20 }}>Swap Accepted! </Text>
       <View>
         <Card>
-          {currentUser ? (
+          {currentUser?.bookshelf.some(
+            (book) => book.title === swap.book1_title
+          ) ? (
             <View style={styles.card}>
               <Text style={styles.text}>Trading your {swap.book1_title}</Text>
-              <Text style={styles.text}>
-                For {swap.user_id2}'s {swap.book2_title}
-              </Text>
+              <Text style={styles.text}>For their {swap.book2_title}</Text>
             </View>
           ) : (
             <View>
-              <Text style={styles.text}>
-                Trading {swap.user_id2}'s {swap.book2_title}
-              </Text>
+              <Text style={styles.text}>Trading their {swap.book2_title}</Text>
               <Text style={styles.text}>For your {swap.book1_title}</Text>
             </View>
           )}
