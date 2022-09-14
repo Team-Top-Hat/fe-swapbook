@@ -61,7 +61,6 @@ export default function UserStack() {
       fetchUser(user.stsTokenManager.accessToken).then((res) =>
         setCurrentUser(res.user)
       );
-      console.log(currentUser);
     }
   }, [user]);
 

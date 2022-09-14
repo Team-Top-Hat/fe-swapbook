@@ -35,3 +35,16 @@ export function fetchUser(key: string) {
     return response.json();
   });
 }
+
+export function postBook(key: string, book: any) {
+  return fetch(`https://alert-cow-loincloth.cyclic.app/api/user/bookshelf`, {
+    method: "POST",
+    headers: {
+      token: key,
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ book }),
+  }).then((response) => {
+    return response.json();
+  });
+}
