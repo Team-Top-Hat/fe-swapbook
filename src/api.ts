@@ -99,3 +99,16 @@ export function postSwap(key: string, swap: any) {
     return response.json();
   });
 }
+
+export function patchSwap(key: string, swap: any) {
+  return fetch(`https://alert-cow-loincloth.cyclic.app/api/swaps`, {
+    method: "PATCH",
+    headers: {
+      token: key,
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ swap }),
+  }).then((response) => {
+    return response.json();
+  });
+}

@@ -5,7 +5,6 @@ import { UserContext } from "../../context/UserContext";
 import { Dropdown } from "react-native-element-dropdown";
 import { postSwap } from "../../api";
 import { useAuthentication } from "../../utils/hooks/useAuthentication";
-import { ScrollView } from "react-native-gesture-handler";
 
 const TradeOffer = ({ route }: any) => {
   const currentListing = route.params.listing;

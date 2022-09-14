@@ -15,6 +15,7 @@ import { UserContext } from "../../context/UserContext";
 const SwapHistory: React.FC<StackScreenProps<any>> = ({ navigation }) => {
   const [swaps, setSwaps] = useState([
     {
+      swap_id: "",
       user1_email: "",
       user2_email: "",
       user_id1: "",
