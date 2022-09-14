@@ -32,6 +32,7 @@ const BookShelf: React.FC<StackScreenProps<any>> = ({ navigation }) => {
                 &#x2795;
               </Text>
             </View>
+            <Text></Text>
           </Card>
         </TouchableOpacity>
         {currentUser?.bookshelf.map(function (book) {
