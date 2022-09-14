@@ -87,7 +87,10 @@ const Swap = ({ route }: any) => {
               <Button
                 containerStyle={{ margin: 10 }}
                 title="Cancel"
-                disabled={isButtonDisabled}></Button>
+                disabled={isButtonDisabled}
+                onPress={() => {
+                  setSwap("rejected");
+                }}></Button>
             </View>
           </View>
         )}
