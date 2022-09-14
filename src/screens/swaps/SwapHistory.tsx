@@ -62,7 +62,7 @@ const SwapHistory: React.FC<StackScreenProps<any>> = ({ navigation }) => {
                     name: "SwapAccepted",
                     params: { swap: swap },
                   })
-                : swap.status === "pending "
+                : swap.status === "pending"
                 ? navigation.navigate({
                     name: "Swap",
                     params: { swap: swap },

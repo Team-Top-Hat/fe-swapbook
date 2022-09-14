@@ -56,13 +56,9 @@ const TradeOffer = ({ route }: any) => {
       user_id2: currentListing.user_id,
     };
 
-    console.log(newSwap);
-    postSwap(user.stsTokenManager.accessToken, newSwap)
-      .then((res) => {
-        console.log(success);
-        setSuccess(true);
-      })
-      .catch((err) => console.log(err, "error"));
+    postSwap(user.stsTokenManager.accessToken, newSwap).then((res) => {
+      setSuccess(true);
+    });
   }
 
   return (

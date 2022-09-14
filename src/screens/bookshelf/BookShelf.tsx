@@ -16,14 +16,13 @@ import { useAuthentication } from "../../utils/hooks/useAuthentication";
 
 const BookShelf: React.FC<StackScreenProps<any>> = ({ navigation }) => {
   const { currentUser, setCurrentUser } = useContext(UserContext);
-
   const { user }: any = useAuthentication();
+  const [isDeleted, setIsDeleted] = React.useState([""]);
 
   function removeBook(isbn: string) {
     if (user) {
       deleteBook(user.stsTokenManager.accessToken, isbn).then((res) => {
-        console.log(res);
-        //setCurrentUser(res);
+        setIsDeleted([...isDeleted, isbn]);
       });
     }
   }
@@ -50,11 +49,10 @@ const BookShelf: React.FC<StackScreenProps<any>> = ({ navigation }) => {
           </Card>
         </TouchableOpacity>
         {currentUser?.bookshelf.map(function (book) {
-          return (
+          return !isDeleted.includes(book.ISBN) ? (
             <Card key={book.title}>
               <TouchableOpacity
                 onPress={() => {
-                  console.log(book.ISBN);
                   removeBook(book.ISBN);
                 }}>
                 <Text style={{ textAlign: "right", color: "red" }}>X</Text>
@@ -68,7 +66,7 @@ const BookShelf: React.FC<StackScreenProps<any>> = ({ navigation }) => {
                 />
               </View>
             </Card>
-          );
+          ) : null;
         })}
       </View>
     </ScrollView>

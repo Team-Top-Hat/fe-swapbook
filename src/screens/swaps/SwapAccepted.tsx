@@ -6,7 +6,7 @@ import { UserContext } from "../../context/UserContext";
 
 const SwapAccepted = ({ route }: any) => {
   const { currentUser } = useContext(UserContext);
-  // console.log(currentUser);
+
   const swap = route.params.swap;
   const [buttonTitle, setButtonTitle] = React.useState("Show Swapper Info");
 
@@ -40,25 +40,21 @@ const SwapAccepted = ({ route }: any) => {
           <Button
             title={buttonTitle}
             containerStyle={{ margin: 10 }}
-            onPress={changeTitle}
-          ></Button>
+            onPress={changeTitle}></Button>
           <View style={styles.row}>
             <Card.Image
               source={{ uri: swap.book1_cover }}
-              style={styles.coverImage}
-            ></Card.Image>
+              style={styles.coverImage}></Card.Image>
             <Text style={{ fontSize: 50 }}>&#8644;</Text>
             <Card.Image
               source={{ uri: swap.book2_cover }}
-              style={styles.coverImage}
-            ></Card.Image>
+              style={styles.coverImage}></Card.Image>
           </View>
           <View style={styles.card}>
             <Text style={styles.text}> Have you swapped?</Text>
             <Button
               containerStyle={{ margin: 50, marginTop: 20 }}
-              title="Send to Bookshelf"
-            ></Button>
+              title="Send to Bookshelf"></Button>
           </View>
         </Card>
       </View>
