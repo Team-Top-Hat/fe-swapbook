@@ -13,6 +13,8 @@ import { useAuthentication } from "../../utils/hooks/useAuthentication";
 import { UserContext } from "../../context/UserContext";
 
 const SwapHistory: React.FC<StackScreenProps<any>> = ({ navigation }) => {
+  const { currentUser } = useContext(UserContext);
+
   const [swaps, setSwaps] = useState([
     {
       swap_id: "",
@@ -33,7 +35,6 @@ const SwapHistory: React.FC<StackScreenProps<any>> = ({ navigation }) => {
   const [isLoading, setIsLoading] = React.useState(true);
 
   const { user }: any = useAuthentication();
-  const { currentUser } = useContext(UserContext);
 
   useEffect(() => {
     if (user) {

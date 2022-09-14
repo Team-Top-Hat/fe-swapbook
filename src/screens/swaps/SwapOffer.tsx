@@ -7,7 +7,6 @@ import { postSwap } from "../../api";
 import { useAuthentication } from "../../utils/hooks/useAuthentication";
 
 const TradeOffer = ({ route }: any) => {
-  const currentListing = route.params.listing;
   const { currentUser } = useContext(UserContext);
   const { user }: any = useAuthentication();
 
@@ -16,6 +15,8 @@ const TradeOffer = ({ route }: any) => {
   const [email, setEmail] = React.useState("");
   const [isButtonDisabled, setIsButtonDisabled] = React.useState(true);
   const [success, setSuccess] = React.useState(false);
+
+  const currentListing = route.params.listing;
 
   const booksFromBookshelf: {
     index: number;

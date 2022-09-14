@@ -12,6 +12,11 @@ import { UserContext } from "../../context/UserContext";
 export default function AddBook() {
   const { user }: any = useAuthentication();
   const { currentUser, setCurrentUser } = useContext(UserContext);
+  const [searchParameters, setSearchParameters] = React.useState([""]);
+  const [index, setIndex]: any = React.useState([0]);
+  const [dropdownValue, setDropDownValue] = React.useState(null);
+  const [isDisabled, setIsDisabled] = React.useState(true);
+  const [isButtonDisabled, setIsButtonDisabled] = React.useState(true);
 
   const [value, setValue] = React.useState({
     title: "",
@@ -24,12 +29,6 @@ export default function AddBook() {
   const [currentBook, setCurrentBook]: any = React.useState([
     { title: "", image: "", isbn: "" },
   ]);
-
-  const [searchParameters, setSearchParameters] = React.useState([""]);
-  const [index, setIndex]: any = React.useState([0]);
-  const [dropdownValue, setDropDownValue] = React.useState(null);
-  const [isDisabled, setIsDisabled] = React.useState(true);
-  const [isButtonDisabled, setIsButtonDisabled] = React.useState(true);
 
   async function submit() {
     const parameters: string[] = [];

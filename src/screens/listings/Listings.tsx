@@ -1,6 +1,5 @@
 import { StackScreenProps } from "@react-navigation/stack";
 import { useAuthentication } from "../../utils/hooks/useAuthentication";
-
 import {
   StyleSheet,
   View,

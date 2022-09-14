@@ -6,9 +6,9 @@ import { UserContext } from "../../context/UserContext";
 
 const SwapAccepted = ({ route }: any) => {
   const { currentUser } = useContext(UserContext);
+  const [buttonTitle, setButtonTitle] = React.useState("Show Swapper Info");
 
   const swap = route.params.swap;
-  const [buttonTitle, setButtonTitle] = React.useState("Show Swapper Info");
 
   function changeTitle() {
     buttonTitle.includes("Show")

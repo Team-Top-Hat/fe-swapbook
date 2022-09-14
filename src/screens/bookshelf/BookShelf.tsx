@@ -15,9 +15,10 @@ import { deleteBook } from "../../api";
 import { useAuthentication } from "../../utils/hooks/useAuthentication";
 
 const BookShelf: React.FC<StackScreenProps<any>> = ({ navigation }) => {
-  const { currentUser, setCurrentUser } = useContext(UserContext);
-  const { user }: any = useAuthentication();
+  const { currentUser } = useContext(UserContext);
   const [isDeleted, setIsDeleted] = React.useState([""]);
+
+  const { user }: any = useAuthentication();
 
   function removeBook(isbn: string) {
     if (user) {

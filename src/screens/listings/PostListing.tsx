@@ -1,5 +1,5 @@
 import { StyleSheet, Text, View } from "react-native";
-import React, { useEffect, useContext } from "react";
+import React, { useContext } from "react";
 import { Button } from "@rneui/themed";
 
 import { Card } from "@rneui/themed";
@@ -9,8 +9,9 @@ import { postListing } from "../../api";
 import { useAuthentication } from "../../utils/hooks/useAuthentication";
 
 const PostListing = () => {
-  const [dropdownValue, setDropDownValue] = React.useState(null);
   const { currentUser } = useContext(UserContext);
+
+  const [dropdownValue, setDropDownValue] = React.useState(null);
   const [index, setIndex]: any = React.useState(0);
   const [dropdownCondition, setDropdownCondition] = React.useState(null);
   const [success, setSuccess] = React.useState(false);

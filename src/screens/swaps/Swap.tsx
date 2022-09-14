@@ -7,11 +7,13 @@ import { patchSwap } from "../../api";
 
 const Swap = ({ route }: any) => {
   const { currentUser } = useContext(UserContext);
-  const swap = route.params.swap;
-  const { user }: any = useAuthentication();
+
   const [email, setEmail] = React.useState("");
   const [success, setSuccess] = React.useState(false);
   const [isButtonDisabled, setIsButtonDisabled] = React.useState(false);
+
+  const swap = route.params.swap;
+  const { user }: any = useAuthentication();
 
   function setSwap(status: string) {
     setIsButtonDisabled(true);
