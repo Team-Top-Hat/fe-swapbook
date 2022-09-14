@@ -12,6 +12,8 @@ const Profile: React.FC<StackScreenProps<any>> = ({ navigation }) => {
   {
     const { user } = useAuthentication();
     const { currentUser } = useContext(UserContext);
+    const [success, setSuccess] = React.useState(false);
+    const [error, setError] = React.useState(false);
 
     return (
       <View style={styles.container}>
@@ -32,14 +34,23 @@ const Profile: React.FC<StackScreenProps<any>> = ({ navigation }) => {
               if (user) {
                 deleteUser(user)
                   .then(() => {
-                    console.log("User Deleted.");
+                    setSuccess(true);
                   })
                   .catch((err) => {
-                    console.log("error deleting user", err);
+                    setError(true);
                   });
               }
             }}
           />
+          {error ? (
+            <View>
+              <Text style={{ color: "red" }}>Error, try again!</Text>
+            </View>
+          ) : success ? (
+            <View>
+              <Text style={{ color: "green" }}>Success!</Text>
+            </View>
+          ) : null}
         </View>
       </View>
     );
