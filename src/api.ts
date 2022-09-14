@@ -25,6 +25,19 @@ export function fetchAllListings(key: string) {
   });
 }
 
+export function postListing(key: string, listing: any) {
+  return fetch(`https://alert-cow-loincloth.cyclic.app/api/listings`, {
+    method: "POST",
+    headers: {
+      token: key,
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ listing }),
+  }).then((response) => {
+    return response.json();
+  });
+}
+
 export function fetchUser(key: string) {
   return fetch(`https://alert-cow-loincloth.cyclic.app/api/user`, {
     method: "GET",

@@ -40,26 +40,28 @@ const Listings: React.FC<StackScreenProps<any>> = ({ navigation }) => {
       (isLoggedIn === 1
         ? fetchAllListings(user.stsTokenManager.accessToken)
         : fetchAllListingsnon()
-      ).then((res) => {
-        const dataFromApi: {
-          title: string;
-          cover_url: string;
-          ISBN: string;
-          user_id: string;
-          error: string;
-        }[] = [];
-        res.listings.forEach(function (listing: any) {
-          dataFromApi.push({
-            title: listing.title,
-            cover_url: listing.cover_url,
-            ISBN: listing.ISBN,
-            user_id: listing.user_id,
-            error: "",
+      )
+        .then((res) => {
+          const dataFromApi: {
+            title: string;
+            cover_url: string;
+            ISBN: string;
+            user_id: string;
+            error: string;
+          }[] = [];
+          res.listings.forEach(function (listing: any) {
+            dataFromApi.push({
+              title: listing.title,
+              cover_url: listing.cover_url,
+              ISBN: listing.ISBN,
+              user_id: listing.user_id,
+              error: "",
+            });
           });
-        });
-        setListings(dataFromApi);
-        setIsLoading(false);
-      });
+          setListings(dataFromApi);
+          setIsLoading(false);
+        })
+        .catch((err) => console.log(err));
     }
   }, [isLoggedIn]);
 

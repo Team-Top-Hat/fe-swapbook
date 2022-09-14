@@ -5,12 +5,17 @@ import { Button } from "@rneui/themed";
 import { Card } from "@rneui/themed";
 import { Dropdown } from "react-native-element-dropdown";
 import { UserContext } from "../../context/UserContext";
+import { postListing } from "../../api";
+import { useAuthentication } from "../../utils/hooks/useAuthentication";
 
 const PostListing = () => {
   const [dropdownValue, setDropDownValue] = React.useState(null);
   const { currentUser } = useContext(UserContext);
   const [index, setIndex]: any = React.useState(0);
   const [dropdownCondition, setDropdownCondition] = React.useState(null);
+  const [success, setSuccess] = React.useState(false);
+  const [isButtonDisabled, setIsButtonDisabled] = React.useState(true);
+
   const [conditions] = React.useState([
     { label: "As New", value: 1 },
     { label: "Very Good", value: 2 },
@@ -18,6 +23,8 @@ const PostListing = () => {
     { label: "Fair", value: 4 },
     { label: "Poor", value: 5 },
   ]);
+
+  const { user }: any = useAuthentication();
 
   const booksFromBookshelf: {
     index: number;
@@ -53,7 +60,25 @@ const PostListing = () => {
     );
   };
 
-  function submit() {}
+  function submit() {
+    setIsButtonDisabled(true);
+    const newListing = {
+      title: booksFromBookshelf[index].title,
+      ISBN: booksFromBookshelf[index].ISBN,
+      cover_url: booksFromBookshelf[index].book_cover,
+      author: "The author",
+      product_pic: "",
+      tags: ["", ""],
+      condition: dropdownCondition,
+      location: {
+        _latitude: 2,
+        _longitude: 2,
+      },
+    };
+    postListing(user.stsTokenManager.accessToken, newListing).then((res) =>
+      setSuccess(true)
+    );
+  }
 
   return (
     <View style={styles.container}>
@@ -92,6 +117,7 @@ const PostListing = () => {
         onChange={(item) => {
           setDropDownValue(item.ISBN);
           setIndex(item.index);
+          setIsButtonDisabled(false);
         }}
         renderItem={renderItem}
       />
@@ -105,10 +131,21 @@ const PostListing = () => {
         valueField={"value"}
         onChange={(item) => {
           setDropdownCondition(item.value);
+          setIsButtonDisabled(false);
         }}
         renderItem={renderCondition}
       />
-      <Button title="Submit" onPress={submit} containerStyle={{ margin: 10 }} />
+      <Button
+        title="Submit"
+        onPress={submit}
+        containerStyle={{ margin: 10 }}
+        disabled={isButtonDisabled}
+      />
+      {success ? (
+        <View style={styles.success}>
+          <Text style={{ color: "green" }}>Success!</Text>
+        </View>
+      ) : null}
     </View>
   );
 };
@@ -123,14 +160,17 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
+
   cardImage: {
     width: 150,
     height: 200,
     resizeMode: "contain",
   },
+
   bookTitle: {
     width: 150,
   },
+
   dropdown: {
     margin: 16,
     width: 200,
@@ -148,20 +188,29 @@ const styles = StyleSheet.create({
 
     elevation: 2,
   },
+
   item: {
     padding: 17,
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
   },
+
   textItem: {
     flex: 1,
     fontSize: 16,
   },
+
+  success: {
+    marginTop: 10,
+    padding: 10,
+  },
+
   placeholderStyle: {
     fontSize: 16,
     height: 40,
   },
+
   selectedTextStyle: {
     fontSize: 16,
   },

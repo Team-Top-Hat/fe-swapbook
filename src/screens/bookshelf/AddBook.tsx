@@ -249,10 +249,12 @@ const styles = StyleSheet.create({
   buttons: {
     flexDirection: "row",
   },
+
   control: {
     marginTop: 10,
     marginBottom: 10,
   },
+
   success: {
     marginTop: 10,
     padding: 10,

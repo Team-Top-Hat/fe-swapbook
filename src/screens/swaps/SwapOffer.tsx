@@ -118,11 +118,11 @@ const TradeOffer = ({ route }: any) => {
           title="Submit"
           onPress={addSwap}
           disabled={isButtonDisabled}></Button>
-        {!!success ?? (
+        {success ? (
           <View>
             <Text style={{ color: "green" }}>Success!</Text>
           </View>
-        )}
+        ) : null}
       </View>
     </View>
   );
