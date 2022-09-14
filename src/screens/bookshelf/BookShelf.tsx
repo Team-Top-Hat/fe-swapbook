@@ -11,9 +11,23 @@ import React, { useContext } from "react";
 import { StackScreenProps } from "@react-navigation/stack";
 import { Card } from "@rneui/themed";
 import { UserContext } from "../../context/UserContext";
+import { deleteBook } from "../../api";
+import { useAuthentication } from "../../utils/hooks/useAuthentication";
 
 const BookShelf: React.FC<StackScreenProps<any>> = ({ navigation }) => {
-  const { currentUser } = useContext(UserContext);
+  const { currentUser, setCurrentUser } = useContext(UserContext);
+
+  const { user }: any = useAuthentication();
+
+  function removeBook(isbn: string) {
+    if (user) {
+      deleteBook(user.stsTokenManager.accessToken, isbn).then((res) => {
+        console.log(res);
+        //setCurrentUser(res);
+      });
+    }
+  }
+
   if (!currentUser) {
     return (
       <View style={[styles.container]}>
@@ -38,7 +52,11 @@ const BookShelf: React.FC<StackScreenProps<any>> = ({ navigation }) => {
         {currentUser?.bookshelf.map(function (book) {
           return (
             <Card key={book.title}>
-              <TouchableOpacity onPress={() => {}}>
+              <TouchableOpacity
+                onPress={() => {
+                  console.log(book.ISBN);
+                  removeBook(book.ISBN);
+                }}>
                 <Text style={{ textAlign: "right", color: "red" }}>X</Text>
               </TouchableOpacity>
               <View style={styles.cardContent}>

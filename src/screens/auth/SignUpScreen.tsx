@@ -87,10 +87,7 @@ const styles = StyleSheet.create({
   },
 
   control: {
-    // marginTop: 10,
-    // flex: 1,
-    // flexDirection: "row",
-    // height: 10,
+    marginTop: 10,
   },
 
   error: {

@@ -10,6 +10,7 @@ interface AppUserContext {
   email: string;
   name: string;
   test: string;
+  id: string;
 }
 interface ContextProps {
   currentUser: AppUserContext | null;

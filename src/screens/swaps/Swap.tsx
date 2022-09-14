@@ -6,7 +6,6 @@ import { UserContext } from "../../context/UserContext";
 const Swap = ({ route }: any) => {
   const { currentUser } = useContext(UserContext);
   const swap = route.params.swap;
-
   {
     return (
       <View style={styles.container}>
@@ -23,13 +22,14 @@ const Swap = ({ route }: any) => {
               source={{ uri: swap.book2_cover }}></Card.Image>
           </Card>
         </View>
-        {currentUser ? (
+
+        {currentUser?.bookshelf.some(
+          (book) => book.title === swap.book2_title
+        ) ? (
           <View>
             <View style={styles.row}>
               <Text>Trading my {swap.book1_title}</Text>
-              <Text>
-                For {swap.user_id2}'s {swap.book2_title}
-              </Text>
+              <Text>For their {swap.book2_title}</Text>
             </View>
             <View style={styles.control}>
               <TextInput
@@ -46,9 +46,7 @@ const Swap = ({ route }: any) => {
         ) : (
           <View>
             <View style={styles.row}>
-              <Text>
-                Trading {swap.user_id2}'s {swap.book1_title}
-              </Text>
+              <Text>Trading their {swap.book1_title}</Text>
               <Text>For my {swap.book2_title}</Text>
             </View>
             <View style={styles.buttons}>

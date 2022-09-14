@@ -50,6 +50,7 @@ export default function UserStack() {
     email: string;
     name: string;
     test: string;
+    id: string;
   }
 
   const [currentUser, setCurrentUser] = React.useState<AppUserContext | null>(

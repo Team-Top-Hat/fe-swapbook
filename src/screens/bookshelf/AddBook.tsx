@@ -291,6 +291,7 @@ const styles = StyleSheet.create({
   },
   placeholderStyle: {
     fontSize: 16,
+    height: 40,
   },
   selectedTextStyle: {
     fontSize: 16,

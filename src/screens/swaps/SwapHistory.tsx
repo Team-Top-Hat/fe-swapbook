@@ -32,7 +32,7 @@ const SwapHistory: React.FC<StackScreenProps<any>> = ({ navigation }) => {
   const [isLoading, setIsLoading] = React.useState(true);
 
   const { user }: any = useAuthentication();
-  const { currentUser, setCurrentUser } = useContext(UserContext);
+  const { currentUser } = useContext(UserContext);
 
   useEffect(() => {
     if (user) {
@@ -66,7 +66,7 @@ const SwapHistory: React.FC<StackScreenProps<any>> = ({ navigation }) => {
                     params: { swap: swap },
                   })
             }>
-            {currentUser?.email === swap.user1_email ? (
+            {currentUser?.email !== swap.user1_email ? (
               <Card>
                 <Text>Status: {swap.status}</Text>
                 <Text>Trading my {swap.book1_title}</Text>

@@ -45,6 +45,7 @@ const Listings: React.FC<StackScreenProps<any>> = ({ navigation }) => {
           title: string;
           cover_url: string;
           ISBN: string;
+          user_id: string;
           error: string;
         }[] = [];
         res.listings.forEach(function (listing: any) {
@@ -52,6 +53,7 @@ const Listings: React.FC<StackScreenProps<any>> = ({ navigation }) => {
             title: listing.title,
             cover_url: listing.cover_url,
             ISBN: listing.ISBN,
+            user_id: listing.user_id,
             error: "",
           });
         });
