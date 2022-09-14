@@ -3,17 +3,42 @@ import React, { useContext } from "react";
 import { Card, Button } from "@rneui/themed";
 
 import { UserContext } from "../../context/UserContext";
+import { postBook } from "../../api";
+import { useAuthentication } from "../../utils/hooks/useAuthentication";
 
 const SwapAccepted = ({ route }: any) => {
-  const { currentUser } = useContext(UserContext);
+  const { currentUser, setCurrentUser } = useContext(UserContext);
   const [buttonTitle, setButtonTitle] = React.useState("Show Swapper Info");
+  const [isButtonDisabled, setIsButtonDisabled] = React.useState(false);
+  const [success, setSuccess] = React.useState(false);
 
+  const { user }: any = useAuthentication();
   const swap = route.params.swap;
 
   function changeTitle() {
     buttonTitle.includes("Show")
       ? setButtonTitle(swap.user1_email)
       : setButtonTitle("Show Swapper Info");
+  }
+
+  function accept() {
+    setIsButtonDisabled(true);
+    const book = {
+      title: swap.book2_title,
+      ISBN: swap.book2_isbn,
+      cover_url: swap.book2_cover,
+    };
+
+    postBook(user.stsTokenManager.accessToken, book)
+      .then(() => {
+        setSuccess(true);
+        if (currentUser) {
+          const newBookShelf = currentUser.bookshelf;
+          newBookShelf?.push(book);
+          setCurrentUser({ ...currentUser, bookshelf: newBookShelf });
+        }
+      })
+      .catch((err) => console.log(err));
   }
 
   return (
@@ -52,7 +77,14 @@ const SwapAccepted = ({ route }: any) => {
             <Text style={styles.text}> Have you swapped?</Text>
             <Button
               containerStyle={{ margin: 50, marginTop: 20 }}
-              title="Send to Bookshelf"></Button>
+              title="Send to Bookshelf"
+              onPress={accept}
+              disabled={isButtonDisabled}></Button>
+            {success ? (
+              <View>
+                <Text style={{ color: "green" }}> Success!</Text>
+              </View>
+            ) : null}
           </View>
         </Card>
       </View>
