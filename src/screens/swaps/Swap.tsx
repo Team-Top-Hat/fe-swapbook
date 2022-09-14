@@ -14,13 +14,15 @@ const Swap = ({ route }: any) => {
           <Card>
             <Card.Image
               style={styles.coverImage}
-              source={{ uri: swap.book1_cover }}></Card.Image>
+              source={{ uri: swap.book1_cover }}
+            ></Card.Image>
           </Card>
           <Text style={{ fontSize: 50 }}>&#8644;</Text>
           <Card>
             <Card.Image
               style={styles.coverImage}
-              source={{ uri: swap.book2_cover }}></Card.Image>
+              source={{ uri: swap.book2_cover }}
+            ></Card.Image>
           </Card>
         </View>
         {currentUser ? (
@@ -36,7 +38,8 @@ const Swap = ({ route }: any) => {
                 autoComplete="off"
                 placeholder="Contact Email"
                 value=""
-                onChangeText={() => {}}></TextInput>
+                onChangeText={() => {}}
+              ></TextInput>
             </View>
             <View style={styles.buttons}>
               <Button containerStyle={{ margin: 10 }} title="Accept"></Button>
