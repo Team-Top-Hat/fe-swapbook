@@ -76,12 +76,14 @@ const TradeOffer = ({ route }: any) => {
         }}
         renderItem={renderItem}
       />
-      <TextInput
-        autoComplete="off"
-        placeholder="Contact Email"
-        value={email}
-        onChangeText={(text: any) => setEmail(text)}></TextInput>
-      <Button title="Submit" onPress={() => {}}></Button>
+      <View style={styles.control}>
+        <TextInput
+          autoComplete="off"
+          placeholder="Contact Email"
+          value={email}
+          onChangeText={(text: any) => setEmail(text)}></TextInput>
+        <Button title="Submit" onPress={() => {}}></Button>
+      </View>
     </View>
   );
 };
@@ -94,6 +96,12 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
     alignItems: "center",
     justifyContent: "center",
+  },
+
+  control: {
+    marginTop: 10,
+    marginBottom: 15,
+    height: 25,
   },
 
   cardImage: {
