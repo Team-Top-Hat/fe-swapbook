@@ -9,6 +9,7 @@
     "web": "expo start --web"
   },
   "dependencies": {
+    "@react-navigation/drawer": "^6.3.0",
     "@react-navigation/native": "^6.0.12",
     "@react-navigation/stack": "^6.2.3",
     "@rneui/base": "^4.0.0-rc.6",
@@ -22,6 +23,8 @@
     "react-dom": "18.0.0",
     "react-native": "0.69.5",
     "react-native-element-dropdown": "^2.3.0",
+    "react-native-gesture-handler": "~2.5.0",
+    "react-native-reanimated": "~2.9.1",
     "react-native-web": "~0.18.7"
   },
   "devDependencies": {

@@ -1,41 +1,13 @@
-import React, { useState } from "react";
-import { ThemeProvider } from "@rneui/themed";
+import "react-native-gesture-handler";
+import React from "react";
 import "./config/firebase";
-import RootNavigation from "./navigation";
-import { UserContext } from "./context/UserContext";
-import AsyncStorage from "@react-native-async-storage/async-storage";
-
-interface AppBookShelf {
-  ISBN: string;
-  book_cover: string;
-  title: string;
-}
-interface AppUserContext {
-  avatar_url: string;
-  bookshelf: AppBookShelf[];
-  email: string;
-  name: string;
-}
+import { ThemeProvider } from "@rneui/themed";
+import RootNavigation from "./src/navigation";
 
 export default function App() {
-  const [currentUser, setCurrentUser] = useState({
-    avatar_url: "string",
-    bookshelf: [
-      {
-        ISBN: "9781118951309",
-        book_cover: "https://pictures.abebooks.com/isbn/9781118951309-uk.jpg",
-        title: "Coding for Dummies",
-      },
-    ],
-    email: "string",
-    name: "string",
-  });
-
   return (
     <ThemeProvider>
-      <UserContext.Provider value={{ currentUser, setCurrentUser }}>
-        <RootNavigation />
-      </UserContext.Provider>
+      <RootNavigation />
     </ThemeProvider>
   );
 }

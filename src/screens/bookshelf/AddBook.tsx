@@ -1,17 +1,24 @@
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
-import React, { useEffect } from "react";
+import React, { useEffect, useContext } from "react";
 import { Card } from "@rneui/themed";
 import { TextInput } from "react-native-gesture-handler";
 import { Button } from "@rneui/themed";
 import { Dropdown } from "react-native-element-dropdown";
-import { fetchGoogleBook } from "../api";
+import { fetchGoogleBook, postBook } from "../../api";
+import { useAuthentication } from "../../utils/hooks/useAuthentication";
+
+import { UserContext } from "../../context/UserContext";
 
 export default function AddBook() {
+  const { user }: any = useAuthentication();
+  const { currentUser, setCurrentUser } = useContext(UserContext);
+
   const [value, setValue] = React.useState({
     title: "",
     author: "",
     isbn: "",
     error: "",
+    success: "",
   });
 
   const [currentBook, setCurrentBook]: any = React.useState([
@@ -22,6 +29,7 @@ export default function AddBook() {
   const [index, setIndex]: any = React.useState([0]);
   const [dropdownValue, setDropDownValue] = React.useState(null);
   const [isDisabled, setIsDisabled] = React.useState(true);
+  const [isButtonDisabled, setIsButtonDisabled] = React.useState(true);
 
   async function submit() {
     const parameters: string[] = [];
@@ -36,7 +44,6 @@ export default function AddBook() {
       parameters.push(`isbn:${value.isbn.replace("-", "").replace(" ", "")}`);
     }
     setSearchParameters(() => parameters);
-    console.log(searchParameters);
   }
 
   useEffect(() => {
@@ -69,6 +76,7 @@ export default function AddBook() {
           setDropDownValue(null);
           setIndex(0);
           setIsDisabled(false);
+          setIsButtonDisabled(false);
         });
       } catch (error) {
         if (error instanceof Error) {
@@ -81,7 +89,32 @@ export default function AddBook() {
     }
   }, [searchParameters]);
 
-  function confirm() {}
+  function confirm() {
+    const book = {
+      title: currentBook[index].title,
+      ISBN: currentBook[index].isbn.identifier,
+      cover_url: currentBook[index].image,
+    };
+    setSearchParameters([""]);
+    setIsButtonDisabled(true);
+    postBook(user.stsTokenManager.accessToken, book)
+      .then((res) => {
+        setValue({ ...value, success: "Success" });
+        if (currentUser) {
+          const newBookShelf = currentUser.bookshelf;
+          newBookShelf?.push(book);
+          setCurrentUser({ ...currentUser, bookshelf: newBookShelf });
+        }
+      })
+      .catch((error) => {
+        if (error instanceof Error) {
+          setValue({
+            ...value,
+            error: error.message,
+          });
+        }
+      });
+  }
 
   const renderItem = (item: any) => {
     return (
@@ -163,9 +196,28 @@ export default function AddBook() {
             }></TextInput>
         </View>
         <View style={styles.buttons}>
-          <Button title="Submit" onPress={submit} />
-          <Button title="Confirm" onPress={confirm} />
+          <Button
+            title="Submit"
+            onPress={submit}
+            containerStyle={{ margin: 10 }}
+          />
+          <Button
+            title="Confirm"
+            onPress={confirm}
+            disabled={isButtonDisabled}
+            containerStyle={{ margin: 10 }}
+          />
         </View>
+        {!!value.error && (
+          <View style={styles.error}>
+            <Text style={{ color: "red" }}>{value.error}</Text>
+          </View>
+        )}
+        {!!value.success && (
+          <View style={styles.success}>
+            <Text style={{ color: "green" }}>{value.success}</Text>
+          </View>
+        )}
       </View>
     </View>
   );
@@ -201,12 +253,14 @@ const styles = StyleSheet.create({
     marginTop: 10,
     marginBottom: 10,
   },
+  success: {
+    marginTop: 10,
+    padding: 10,
+  },
 
   error: {
     marginTop: 10,
     padding: 10,
-    color: "#fff",
-    backgroundColor: "#D54826FF",
   },
   dropdown: {
     margin: 16,

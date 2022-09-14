@@ -1,23 +1,28 @@
-import React from "react";
-import { StyleSheet, Text, View } from "react-native";
+import React, { useEffect } from "react";
+import { StyleSheet, Text, View, ActivityIndicator } from "react-native";
 import { StackScreenProps } from "@react-navigation/stack";
-import { Button } from "@rneui/themed";
+import { Button, Image } from "@rneui/themed";
 
 const WelcomeScreen: React.FC<StackScreenProps<any>> = ({ navigation }) => {
   return (
     <View style={styles.container}>
-      <Text>Welcome screen!</Text>
-
+      <Text style={{ fontSize: 20 }}>Welcome!</Text>
+      <Image source={{ uri: "" }} PlaceholderContent={<ActivityIndicator />} />
       <View style={styles.buttons}>
         <Button
+          title="Browse Listings"
+          containerStyle={{ margin: 10 }}
+          onPress={() => navigation.navigate("Listings")}
+        />
+        <Button
           title="Sign in"
-          buttonStyle={styles.button}
+          containerStyle={{ margin: 30, marginBottom: 10 }}
           onPress={() => navigation.navigate("Sign In")}
         />
         <Button
           title="Sign up"
           type="outline"
-          buttonStyle={styles.button}
+          containerStyle={{ margin: 30, marginTop: 10 }}
           onPress={() => navigation.navigate("Sign Up")}
         />
       </View>
@@ -28,18 +33,15 @@ const WelcomeScreen: React.FC<StackScreenProps<any>> = ({ navigation }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingTop: 20,
     backgroundColor: "#fff",
     alignItems: "center",
     justifyContent: "center",
   },
-
   buttons: {
-    flex: 1,
-  },
-
-  button: {
-    marginTop: 10,
+    marginTop: 20,
+    flexDirection: "column",
+    justifyContent: "center",
+    flexWrap: "wrap",
   },
 });
 
