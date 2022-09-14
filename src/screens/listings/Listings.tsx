@@ -12,10 +12,11 @@ import {
 import React, { useEffect } from "react";
 import { Card } from "@rneui/themed";
 import { fetchAllListings, fetchAllListingsnon } from "../../api";
+import { getAuth } from "firebase/auth";
 
 const Listings: React.FC<StackScreenProps<any>> = ({ navigation }) => {
-  const { user }: any = useAuthentication();
   const [isLoading, setIsLoading] = React.useState(true);
+  const [isLoggedIn, setIsLoggedIn] = React.useState(0);
   const [listings, setListings] = React.useState([
     {
       title: "",
@@ -25,31 +26,42 @@ const Listings: React.FC<StackScreenProps<any>> = ({ navigation }) => {
     },
   ]);
 
-  useEffect(() => {
-    (user
-      ? fetchAllListings(user.stsTokenManager.accessToken)
-      : fetchAllListingsnon()
-    ).then((res) => {
-      const dataFromApi: {
-        title: string;
-        cover_url: string;
-        ISBN: string;
-        error: string;
-      }[] = [];
-      res.listings.forEach(function (listing: any) {
-        dataFromApi.push({
-          title: listing.title,
-          cover_url: listing.cover_url,
-          ISBN: listing.ISBN,
-          error: "",
-        });
-      });
-      setListings(dataFromApi);
-      setIsLoading(false);
-    });
-  }, []);
+  const { user }: any = useAuthentication();
 
-  if (isLoading)
+  useEffect(() => {
+    getAuth().onAuthStateChanged(function (user) {
+      if (user) {
+        setIsLoggedIn(1);
+      } else {
+        setIsLoggedIn(2);
+      }
+    });
+    if (isLoggedIn !== 0) {
+      (isLoggedIn === 1
+        ? fetchAllListings(user.stsTokenManager.accessToken)
+        : fetchAllListingsnon()
+      ).then((res) => {
+        const dataFromApi: {
+          title: string;
+          cover_url: string;
+          ISBN: string;
+          error: string;
+        }[] = [];
+        res.listings.forEach(function (listing: any) {
+          dataFromApi.push({
+            title: listing.title,
+            cover_url: listing.cover_url,
+            ISBN: listing.ISBN,
+            error: "",
+          });
+        });
+        setListings(dataFromApi);
+        setIsLoading(false);
+      });
+    }
+  }, [isLoggedIn]);
+
+  if (isLoading || isLoggedIn === 0)
     return (
       <View style={[styles.container]}>
         <ActivityIndicator size="large" />
@@ -68,7 +80,8 @@ const Listings: React.FC<StackScreenProps<any>> = ({ navigation }) => {
                     params: { listing: listing },
                   })
                 }
-                key={i}>
+                key={i}
+              >
                 <Card>
                   <View style={styles.cardContent}>
                     <View style={styles.text}>

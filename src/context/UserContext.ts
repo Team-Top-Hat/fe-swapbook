@@ -9,6 +9,7 @@ interface AppUserContext {
   bookshelf: AppBookShelf[];
   email: string;
   name: string;
+  test: string;
 }
 interface ContextProps {
   currentUser: AppUserContext | null;

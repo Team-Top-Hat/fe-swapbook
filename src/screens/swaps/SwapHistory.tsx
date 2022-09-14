@@ -1,11 +1,9 @@
 import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
 import React, { useContext, useEffect, useState } from "react";
 import { Card } from "@rneui/themed";
-import { UserContext } from "../../context/UserContext";
 import { StackScreenProps } from "@react-navigation/stack";
 
 const SwapHistory: React.FC<StackScreenProps<any>> = ({ navigation }) => {
-  const { currentUser } = useContext(UserContext);
   const [swaps, setSwaps] = useState([
     {
       user1_email: "email@user1.com",
@@ -39,7 +37,7 @@ const SwapHistory: React.FC<StackScreenProps<any>> = ({ navigation }) => {
     },
   ]);
 
-  useEffect(() => {}, []);
+  // useEffect(() => {}, []);
 
   return (
     <View>
@@ -57,7 +55,8 @@ const SwapHistory: React.FC<StackScreenProps<any>> = ({ navigation }) => {
                     name: "Swap",
                     params: { swap: swap },
                   })
-            }>
+            }
+          >
             <Card>
               <Text>Status: {swap.status}</Text>
               <Text>

@@ -26,7 +26,7 @@ const Drawer = createDrawerNavigator();
 function ScreenNav() {
   return (
     <Stack.Navigator screenOptions={{ headerShown: false }}>
-      <Stack.Screen name="Listings" component={Listings} />
+      <Stack.Screen name="HomeScreen" component={HomeScreen} />
       <Stack.Screen name="AddBook" component={AddBook} />
       <Stack.Screen name="Listing" component={Listing} />
       <Stack.Screen name="TradeOffer" component={TradeOffer} />
@@ -49,6 +49,7 @@ export default function UserStack() {
     bookshelf: AppBookShelf[];
     email: string;
     name: string;
+    test: string;
   }
 
   const [currentUser, setCurrentUser] = React.useState<AppUserContext | null>(
@@ -60,6 +61,7 @@ export default function UserStack() {
       fetchUser(user.stsTokenManager.accessToken).then((res) =>
         setCurrentUser(res.user)
       );
+      console.log(currentUser);
     }
   }, [user]);
 
@@ -67,7 +69,8 @@ export default function UserStack() {
     <UserContext.Provider value={{ currentUser, setCurrentUser }}>
       <NavigationContainer>
         <Drawer.Navigator
-          screenOptions={{ headerStyle: { backgroundColor: "orange" } }}>
+          screenOptions={{ headerStyle: { backgroundColor: "orange" } }}
+        >
           <Drawer.Screen
             name="ScreenNav"
             component={ScreenNav}
