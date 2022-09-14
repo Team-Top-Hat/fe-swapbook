@@ -10,15 +10,19 @@ const Swap = ({ route }: any) => {
   const swap = route.params.swap;
   const { user }: any = useAuthentication();
   const [email, setEmail] = React.useState("");
+  const [success, setSuccess] = React.useState(false);
+  const [isButtonDisabled, setIsButtonDisabled] = React.useState(false);
 
   function setSwap(status: string) {
+    setIsButtonDisabled(true);
+    setSuccess(true);
     const newSwap = {
       status: status,
       user2_email: status === "rejected" ? "none" : email,
       swap_id: swap.swap_id,
     };
     patchSwap(user.stsTokenManager.accessToken, newSwap).then((res) =>
-      console.log(res)
+      setSuccess(true)
     );
   }
 
@@ -60,12 +64,14 @@ const Swap = ({ route }: any) => {
               <Button
                 containerStyle={{ margin: 10 }}
                 title="Accept"
+                disabled={isButtonDisabled}
                 onPress={() => {
                   setSwap("accepted");
                 }}></Button>
               <Button
                 containerStyle={{ margin: 10 }}
                 title="Decline"
+                disabled={isButtonDisabled}
                 onPress={() => {
                   setSwap("rejected");
                 }}></Button>
@@ -78,10 +84,18 @@ const Swap = ({ route }: any) => {
               <Text>For my {swap.book2_title}</Text>
             </View>
             <View style={styles.buttons}>
-              <Button containerStyle={{ margin: 10 }} title="Cancel"></Button>
+              <Button
+                containerStyle={{ margin: 10 }}
+                title="Cancel"
+                disabled={isButtonDisabled}></Button>
             </View>
           </View>
         )}
+        {success ? (
+          <View style={styles.success}>
+            <Text style={{ color: "green" }}>Success!</Text>
+          </View>
+        ) : null}
       </View>
     );
   }
@@ -106,6 +120,12 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
   },
+
+  success: {
+    marginTop: 10,
+    padding: 10,
+  },
+
   row: {
     textAlign: "center",
     flexDirection: "row",

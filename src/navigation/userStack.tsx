@@ -94,7 +94,7 @@ export default function UserStack() {
           <Drawer.Screen
             name="SwapHistory"
             component={SwapHistory}
-            options={{ title: "Swap History" }}
+            options={{ title: "Swap Overview" }}
           />
         </Drawer.Navigator>
       </NavigationContainer>

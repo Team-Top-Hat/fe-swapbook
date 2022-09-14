@@ -17,7 +17,7 @@ export function getHeaderTitle(route) {
     case "TradeOffer":
       return "Trade Offer";
     case "SwapHistory":
-      return "Swap History";
+      return "Swap Overview";
     case "Swap":
       return "Swap";
     case "SwapAccepted":
