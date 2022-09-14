@@ -14,7 +14,6 @@ import { UserContext } from "../../context/UserContext";
 
 const BookShelf: React.FC<StackScreenProps<any>> = ({ navigation }) => {
   const { currentUser } = useContext(UserContext);
-  console.log(currentUser?.bookshelf);
   if (!currentUser) {
     return (
       <View style={[styles.container]}>

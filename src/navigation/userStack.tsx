@@ -68,8 +68,7 @@ export default function UserStack() {
     <UserContext.Provider value={{ currentUser, setCurrentUser }}>
       <NavigationContainer>
         <Drawer.Navigator
-          screenOptions={{ headerStyle: { backgroundColor: "orange" } }}
-        >
+          screenOptions={{ headerStyle: { backgroundColor: "orange" } }}>
           <Drawer.Screen
             name="ScreenNav"
             component={ScreenNav}

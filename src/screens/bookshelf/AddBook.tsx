@@ -5,10 +5,9 @@ import { TextInput } from "react-native-gesture-handler";
 import { Button } from "@rneui/themed";
 import { Dropdown } from "react-native-element-dropdown";
 import { fetchGoogleBook, postBook } from "../../api";
-import { set } from "react-native-reanimated";
 import { useAuthentication } from "../../utils/hooks/useAuthentication";
+
 import { UserContext } from "../../context/UserContext";
-import BookShelf from "./BookShelf";
 
 export default function AddBook() {
   const { user }: any = useAuthentication();
@@ -101,6 +100,11 @@ export default function AddBook() {
     postBook(user.stsTokenManager.accessToken, book)
       .then((res) => {
         setValue({ ...value, success: "Success" });
+        if (currentUser) {
+          const newBookShelf = currentUser.bookshelf;
+          newBookShelf?.push(book);
+          setCurrentUser({ ...currentUser, bookshelf: newBookShelf });
+        }
       })
       .catch((error) => {
         if (error instanceof Error) {
@@ -133,14 +137,12 @@ export default function AddBook() {
                   style={styles.cardImage}
                   source={{
                     uri: currentBook[index].image,
-                  }}
-                ></Card.Image>
+                  }}></Card.Image>
               ) : (
                 <Card.Image
                   source={{
                     uri: "http://upload.wikimedia.org/wikipedia/commons/3/39/Books_Silhouette.svg",
-                  }}
-                ></Card.Image>
+                  }}></Card.Image>
               )}
               <Text style={styles.bookTitle}>{currentBook[index].title}</Text>
             </View>
@@ -171,24 +173,27 @@ export default function AddBook() {
             autoComplete="off"
             placeholder="Title"
             value={value.title}
-            onChangeText={(text: any) => setValue({ ...value, title: text })}
-          ></TextInput>
+            onChangeText={(text: any) =>
+              setValue({ ...value, title: text })
+            }></TextInput>
         </View>
         <View style={styles.control}>
           <TextInput
             autoComplete="off"
             placeholder="Author"
             value={value.author}
-            onChangeText={(text: any) => setValue({ ...value, author: text })}
-          ></TextInput>
+            onChangeText={(text: any) =>
+              setValue({ ...value, author: text })
+            }></TextInput>
         </View>
         <View style={styles.control}>
           <TextInput
             autoComplete="off"
             placeholder="ISBN"
             value={value.isbn}
-            onChangeText={(text: any) => setValue({ ...value, isbn: text })}
-          ></TextInput>
+            onChangeText={(text: any) =>
+              setValue({ ...value, isbn: text })
+            }></TextInput>
         </View>
         <View style={styles.buttons}>
           <Button
