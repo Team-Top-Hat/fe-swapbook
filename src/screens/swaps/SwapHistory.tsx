@@ -2,6 +2,8 @@ import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
 import React, { useContext, useEffect, useState } from "react";
 import { Card } from "@rneui/themed";
 import { StackScreenProps } from "@react-navigation/stack";
+import { fetchSwaps } from "../../api";
+import { useAuthentication } from "../../utils/hooks/useAuthentication";
 
 const SwapHistory: React.FC<StackScreenProps<any>> = ({ navigation }) => {
   const [swaps, setSwaps] = useState([
@@ -37,7 +39,15 @@ const SwapHistory: React.FC<StackScreenProps<any>> = ({ navigation }) => {
     },
   ]);
 
-  // useEffect(() => {}, []);
+  const { user }: any = useAuthentication();
+
+  useEffect(() => {
+    if (user) {
+      // fetchSwaps(user.stsTokenManager.accessToken).then((res) =>
+      //   console.log(res)
+      // );
+    }
+  }, [user]);
 
   return (
     <View>
@@ -55,8 +65,7 @@ const SwapHistory: React.FC<StackScreenProps<any>> = ({ navigation }) => {
                     name: "Swap",
                     params: { swap: swap },
                   })
-            }
-          >
+            }>
             <Card>
               <Text>Status: {swap.status}</Text>
               <Text>

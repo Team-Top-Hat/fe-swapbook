@@ -37,6 +37,9 @@ const BookShelf: React.FC<StackScreenProps<any>> = ({ navigation }) => {
         {currentUser?.bookshelf.map(function (book) {
           return (
             <Card key={book.title}>
+              <TouchableOpacity onPress={() => {}}>
+                <Text style={{ textAlign: "right", color: "red" }}>X</Text>
+              </TouchableOpacity>
               <View style={styles.cardContent}>
                 <Card.Title style={styles.text}>{book.title}</Card.Title>
                 <Card.Image

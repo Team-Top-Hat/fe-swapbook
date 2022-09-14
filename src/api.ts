@@ -48,3 +48,14 @@ export function postBook(key: string, book: any) {
     return response.json();
   });
 }
+
+export function fetchSwaps(key: string) {
+  return fetch(`https://alert-cow-loincloth.cyclic.app/api/swaps`, {
+    method: "GET",
+    headers: {
+      token: key,
+    },
+  }).then((response) => {
+    return response.json();
+  });
+}

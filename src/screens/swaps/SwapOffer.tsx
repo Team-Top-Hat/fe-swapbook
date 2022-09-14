@@ -9,7 +9,11 @@ const TradeOffer = ({ route }: any) => {
   const { currentUser } = useContext(UserContext);
 
   const [dropdownValue, setDropDownValue] = React.useState(null);
-  const [index, setIndex]: any = React.useState(0);
+  const [index, setIndex] = React.useState(0);
+  const [email, setEmail] = React.useState("");
+
+  console.log(email);
+
   const booksFromBookshelf: {
     index: number;
     title: string;
@@ -75,8 +79,8 @@ const TradeOffer = ({ route }: any) => {
       <TextInput
         autoComplete="off"
         placeholder="Contact Email"
-        value=""
-        onChangeText={() => {}}></TextInput>
+        value={email}
+        onChangeText={(text: any) => setEmail(text)}></TextInput>
       <Button title="Submit" onPress={() => {}}></Button>
     </View>
   );

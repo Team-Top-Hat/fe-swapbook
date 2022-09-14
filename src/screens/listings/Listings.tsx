@@ -80,8 +80,7 @@ const Listings: React.FC<StackScreenProps<any>> = ({ navigation }) => {
                     params: { listing: listing },
                   })
                 }
-                key={i}
-              >
+                key={i}>
                 <Card>
                   <View style={styles.cardContent}>
                     <View style={styles.text}>
