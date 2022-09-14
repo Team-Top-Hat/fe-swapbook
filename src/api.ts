@@ -49,6 +49,20 @@ export function postBook(key: string, book: any) {
   });
 }
 
+export function deleteBook(key: string, isbn: string) {
+  return fetch(
+    `https://alert-cow-loincloth.cyclic.app/api/user/bookshelf/${isbn}`,
+    {
+      method: "DELETE",
+      headers: {
+        token: key,
+      },
+    }
+  ).then((response) => {
+    return response.text();
+  });
+}
+
 export function fetchSwaps(key: string) {
   return fetch(`https://alert-cow-loincloth.cyclic.app/api/swaps`, {
     method: "GET",
