@@ -49,8 +49,8 @@ const TradeOffer = ({ route }: any) => {
       user1_email: email,
       book1_cover: booksFromBookshelf[index].book_cover,
       book1_title: booksFromBookshelf[index].title,
-      book1_ISBN: currentListing.ISBN,
-      book2_ISBN: booksFromBookshelf[index].ISBN,
+      book1_ISBN: booksFromBookshelf[index].ISBN,
+      book2_ISBN: currentListing.ISBN,
       book2_cover: currentListing.cover_url,
       book2_title: currentListing.title,
       status: "pending",
@@ -109,11 +109,13 @@ const TradeOffer = ({ route }: any) => {
           onChangeText={(text: any) => {
             setEmail(text);
             setIsButtonDisabled(false);
-          }}></TextInput>
+          }}
+        ></TextInput>
         <Button
           title="Submit"
           onPress={addSwap}
-          disabled={isButtonDisabled}></Button>
+          disabled={isButtonDisabled}
+        ></Button>
         {success ? (
           <View>
             <Text style={{ color: "green" }}>Success!</Text>

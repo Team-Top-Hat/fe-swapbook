@@ -3,7 +3,7 @@ import React, { useContext } from "react";
 import { Card, Button } from "@rneui/themed";
 
 import { UserContext } from "../../context/UserContext";
-import { postBook } from "../../api";
+import { deleteBook, postBook } from "../../api";
 import { useAuthentication } from "../../utils/hooks/useAuthentication";
 
 const SwapAccepted = ({ route }: any) => {
@@ -25,18 +25,24 @@ const SwapAccepted = ({ route }: any) => {
     setIsButtonDisabled(true);
     const book = {
       title: swap.book2_title,
-      ISBN: swap.book2_isbn,
+      ISBN: swap.book2_ISBN,
       cover_url: swap.book2_cover,
     };
 
     postBook(user.stsTokenManager.accessToken, book)
       .then(() => {
         setSuccess(true);
-        if (currentUser) {
-          const newBookShelf = currentUser.bookshelf;
-          newBookShelf?.push(book);
-          setCurrentUser({ ...currentUser, bookshelf: newBookShelf });
-        }
+        deleteBook(user.stsTokenManager.accessToken, swap.book1_ISBN).then(
+          (res: any) => {
+            if (currentUser) {
+              const newBookShelf: any = currentUser.bookshelf.filter(
+                (book) => book.ISBN !== swap.book1_ISBN
+              );
+              newBookShelf?.push(book);
+              setCurrentUser({ ...currentUser, bookshelf: newBookShelf });
+            }
+          }
+        );
       })
       .catch((err) => console.log(err));
   }
@@ -63,15 +69,18 @@ const SwapAccepted = ({ route }: any) => {
           <Button
             title={buttonTitle}
             containerStyle={{ margin: 10 }}
-            onPress={changeTitle}></Button>
+            onPress={changeTitle}
+          ></Button>
           <View style={styles.row}>
             <Card.Image
               source={{ uri: swap.book1_cover }}
-              style={styles.coverImage}></Card.Image>
+              style={styles.coverImage}
+            ></Card.Image>
             <Text style={{ fontSize: 50 }}>&#8644;</Text>
             <Card.Image
               source={{ uri: swap.book2_cover }}
-              style={styles.coverImage}></Card.Image>
+              style={styles.coverImage}
+            ></Card.Image>
           </View>
           <View style={styles.card}>
             <Text style={styles.text}> Have you swapped?</Text>
@@ -79,7 +88,8 @@ const SwapAccepted = ({ route }: any) => {
               containerStyle={{ margin: 50, marginTop: 20 }}
               title="Send to Bookshelf"
               onPress={accept}
-              disabled={isButtonDisabled}></Button>
+              disabled={isButtonDisabled}
+            ></Button>
             {success ? (
               <View>
                 <Text style={{ color: "green" }}> Success!</Text>

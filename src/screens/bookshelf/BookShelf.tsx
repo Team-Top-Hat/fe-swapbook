@@ -55,7 +55,8 @@ const BookShelf: React.FC<StackScreenProps<any>> = ({ navigation }) => {
               <TouchableOpacity
                 onPress={() => {
                   removeBook(book.ISBN);
-                }}>
+                }}
+              >
                 <Text style={{ textAlign: "right", color: "red" }}>X</Text>
               </TouchableOpacity>
               <View style={styles.cardContent}>

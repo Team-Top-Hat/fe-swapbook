@@ -69,7 +69,8 @@ const SwapHistory: React.FC<StackScreenProps<any>> = ({ navigation }) => {
                     params: { swap: swap },
                   })
                 : null
-            }>
+            }
+          >
             {currentUser?.email !== swap.user1_email ? (
               <Card>
                 <Text
@@ -80,7 +81,8 @@ const SwapHistory: React.FC<StackScreenProps<any>> = ({ navigation }) => {
                         : swap.status === "accepted"
                         ? "green"
                         : "orange",
-                  }}>
+                  }}
+                >
                   Status: {swap.status}
                 </Text>
                 <Text>Trading my {swap.book1_title}</Text>
@@ -96,7 +98,8 @@ const SwapHistory: React.FC<StackScreenProps<any>> = ({ navigation }) => {
                         : swap.status === "accepted"
                         ? "green"
                         : "orange",
-                  }}>
+                  }}
+                >
                   Status: {swap.status}
                 </Text>
                 <Text>Trading their {swap.book1_title}</Text>
