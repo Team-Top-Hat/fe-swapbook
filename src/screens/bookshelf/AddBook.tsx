@@ -10,8 +10,14 @@ import { useAuthentication } from "../../utils/hooks/useAuthentication";
 import { UserContext } from "../../context/UserContext";
 
 export default function AddBook() {
-  const { user }: any = useAuthentication();
   const { currentUser, setCurrentUser } = useContext(UserContext);
+  const [searchParameters, setSearchParameters] = React.useState([""]);
+  const [index, setIndex]: any = React.useState([0]);
+  const [dropdownValue, setDropDownValue] = React.useState(null);
+  const [isDisabled, setIsDisabled] = React.useState(true);
+  const [isButtonDisabled, setIsButtonDisabled] = React.useState(true);
+
+  const { user }: any = useAuthentication();
 
   const [value, setValue] = React.useState({
     title: "",
@@ -24,12 +30,6 @@ export default function AddBook() {
   const [currentBook, setCurrentBook]: any = React.useState([
     { title: "", image: "", isbn: "" },
   ]);
-
-  const [searchParameters, setSearchParameters] = React.useState([""]);
-  const [index, setIndex]: any = React.useState([0]);
-  const [dropdownValue, setDropDownValue] = React.useState(null);
-  const [isDisabled, setIsDisabled] = React.useState(true);
-  const [isButtonDisabled, setIsButtonDisabled] = React.useState(true);
 
   async function submit() {
     const parameters: string[] = [];
@@ -45,6 +45,42 @@ export default function AddBook() {
     }
     setSearchParameters(() => parameters);
   }
+
+  function confirm() {
+    const book = {
+      title: currentBook[index].title,
+      ISBN: currentBook[index].isbn.identifier,
+      cover_url: currentBook[index].image,
+    };
+    setSearchParameters([""]);
+    setIsButtonDisabled(true);
+    postBook(user.stsTokenManager.accessToken, book)
+      .then((res) => {
+        setValue({ ...value, success: "Success" });
+        if (currentUser) {
+          const newBookShelf = currentUser.bookshelf;
+          newBookShelf?.push(book);
+          setCurrentUser({ ...currentUser, bookshelf: newBookShelf });
+        }
+      })
+      .catch((error) => {
+        if (error instanceof Error) {
+          setValue({
+            ...value,
+            error: error.message,
+          });
+        }
+      });
+  }
+
+  const renderItem = (item: any) => {
+    return (
+      <View style={styles.item}>
+        <Text style={styles.textItem}>{item.title}</Text>
+        {item.value === dropdownValue}
+      </View>
+    );
+  };
 
   useEffect(() => {
     if (searchParameters[0] !== "") {
@@ -88,42 +124,6 @@ export default function AddBook() {
       }
     }
   }, [searchParameters]);
-
-  function confirm() {
-    const book = {
-      title: currentBook[index].title,
-      ISBN: currentBook[index].isbn.identifier,
-      cover_url: currentBook[index].image,
-    };
-    setSearchParameters([""]);
-    setIsButtonDisabled(true);
-    postBook(user.stsTokenManager.accessToken, book)
-      .then((res) => {
-        setValue({ ...value, success: "Success" });
-        if (currentUser) {
-          const newBookShelf = currentUser.bookshelf;
-          newBookShelf?.push(book);
-          setCurrentUser({ ...currentUser, bookshelf: newBookShelf });
-        }
-      })
-      .catch((error) => {
-        if (error instanceof Error) {
-          setValue({
-            ...value,
-            error: error.message,
-          });
-        }
-      });
-  }
-
-  const renderItem = (item: any) => {
-    return (
-      <View style={styles.item}>
-        <Text style={styles.textItem}>{item.title}</Text>
-        {item.value === dropdownValue}
-      </View>
-    );
-  };
 
   return (
     <View style={styles.container}>
@@ -249,10 +249,12 @@ const styles = StyleSheet.create({
   buttons: {
     flexDirection: "row",
   },
+
   control: {
     marginTop: 10,
     marginBottom: 10,
   },
+
   success: {
     marginTop: 10,
     padding: 10,
@@ -291,6 +293,7 @@ const styles = StyleSheet.create({
   },
   placeholderStyle: {
     fontSize: 16,
+    height: 40,
   },
   selectedTextStyle: {
     fontSize: 16,

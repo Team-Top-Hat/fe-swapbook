@@ -11,9 +11,23 @@ import React, { useContext } from "react";
 import { StackScreenProps } from "@react-navigation/stack";
 import { Card } from "@rneui/themed";
 import { UserContext } from "../../context/UserContext";
+import { deleteBook } from "../../api";
+import { useAuthentication } from "../../utils/hooks/useAuthentication";
 
 const BookShelf: React.FC<StackScreenProps<any>> = ({ navigation }) => {
   const { currentUser } = useContext(UserContext);
+  const [isDeleted, setIsDeleted] = React.useState([""]);
+
+  const { user }: any = useAuthentication();
+
+  function removeBook(isbn: string) {
+    if (user) {
+      deleteBook(user.stsTokenManager.accessToken, isbn).then((res) => {
+        setIsDeleted([...isDeleted, isbn]);
+      });
+    }
+  }
+
   if (!currentUser) {
     return (
       <View style={[styles.container]}>
@@ -32,12 +46,17 @@ const BookShelf: React.FC<StackScreenProps<any>> = ({ navigation }) => {
                 &#x2795;
               </Text>
             </View>
+            <Text></Text>
           </Card>
         </TouchableOpacity>
         {currentUser?.bookshelf.map(function (book) {
-          return (
+          return !isDeleted.includes(book.ISBN) ? (
             <Card key={book.title}>
-              <TouchableOpacity onPress={() => {}}>
+              <TouchableOpacity
+                onPress={() => {
+                  removeBook(book.ISBN);
+                }}
+              >
                 <Text style={{ textAlign: "right", color: "red" }}>X</Text>
               </TouchableOpacity>
               <View style={styles.cardContent}>
@@ -49,7 +68,7 @@ const BookShelf: React.FC<StackScreenProps<any>> = ({ navigation }) => {
                 />
               </View>
             </Card>
-          );
+          ) : null;
         })}
       </View>
     </ScrollView>

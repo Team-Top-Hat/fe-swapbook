@@ -1,6 +1,5 @@
 import { StackScreenProps } from "@react-navigation/stack";
 import { useAuthentication } from "../../utils/hooks/useAuthentication";
-
 import {
   StyleSheet,
   View,
@@ -45,6 +44,7 @@ const Listings: React.FC<StackScreenProps<any>> = ({ navigation }) => {
           title: string;
           cover_url: string;
           ISBN: string;
+          user_id: string;
           error: string;
         }[] = [];
         res.listings.forEach(function (listing: any) {
@@ -52,6 +52,7 @@ const Listings: React.FC<StackScreenProps<any>> = ({ navigation }) => {
             title: listing.title,
             cover_url: listing.cover_url,
             ISBN: listing.ISBN,
+            user_id: listing.user_id,
             error: "",
           });
         });
@@ -63,7 +64,7 @@ const Listings: React.FC<StackScreenProps<any>> = ({ navigation }) => {
 
   if (isLoading || isLoggedIn === 0)
     return (
-      <View style={[styles.container]}>
+      <View style={styles.loading}>
         <ActivityIndicator size="large" />
       </View>
     );
@@ -111,6 +112,12 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     flexDirection: "row",
     flexWrap: "wrap",
+  },
+  loading: {
+    flex: 1,
+    backgroundColor: "#fff",
+    alignItems: "center",
+    justifyContent: "center",
   },
 
   row: {

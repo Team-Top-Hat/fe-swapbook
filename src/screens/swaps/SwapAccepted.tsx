@@ -3,12 +3,17 @@ import React, { useContext } from "react";
 import { Card, Button } from "@rneui/themed";
 
 import { UserContext } from "../../context/UserContext";
+import { deleteBook, postBook } from "../../api";
+import { useAuthentication } from "../../utils/hooks/useAuthentication";
 
 const SwapAccepted = ({ route }: any) => {
-  const { currentUser } = useContext(UserContext);
-  // console.log(currentUser);
-  const swap = route.params.swap;
+  const { currentUser, setCurrentUser } = useContext(UserContext);
   const [buttonTitle, setButtonTitle] = React.useState("Show Swapper Info");
+  const [isButtonDisabled, setIsButtonDisabled] = React.useState(false);
+  const [success, setSuccess] = React.useState(false);
+
+  const { user }: any = useAuthentication();
+  const swap = route.params.swap;
 
   function changeTitle() {
     buttonTitle.includes("Show")
@@ -16,23 +21,47 @@ const SwapAccepted = ({ route }: any) => {
       : setButtonTitle("Show Swapper Info");
   }
 
+  function accept() {
+    setIsButtonDisabled(true);
+    const book = {
+      title: swap.book2_title,
+      ISBN: swap.book2_ISBN,
+      cover_url: swap.book2_cover,
+    };
+
+    postBook(user.stsTokenManager.accessToken, book)
+      .then(() => {
+        setSuccess(true);
+        deleteBook(user.stsTokenManager.accessToken, swap.book1_ISBN).then(
+          (res: any) => {
+            if (currentUser) {
+              const newBookShelf: any = currentUser.bookshelf.filter(
+                (book) => book.ISBN !== swap.book1_ISBN
+              );
+              newBookShelf?.push(book);
+              setCurrentUser({ ...currentUser, bookshelf: newBookShelf });
+            }
+          }
+        );
+      })
+      .catch((err) => console.log(err));
+  }
+
   return (
     <View style={styles.container}>
       <Text style={{ fontSize: 20 }}>Swap Accepted! </Text>
       <View>
         <Card>
-          {currentUser ? (
+          {currentUser?.bookshelf.some(
+            (book) => book.title === swap.book1_title
+          ) ? (
             <View style={styles.card}>
               <Text style={styles.text}>Trading your {swap.book1_title}</Text>
-              <Text style={styles.text}>
-                For {swap.user_id2}'s {swap.book2_title}
-              </Text>
+              <Text style={styles.text}>For their {swap.book2_title}</Text>
             </View>
           ) : (
             <View>
-              <Text style={styles.text}>
-                Trading {swap.user_id2}'s {swap.book2_title}
-              </Text>
+              <Text style={styles.text}>Trading their {swap.book2_title}</Text>
               <Text style={styles.text}>For your {swap.book1_title}</Text>
             </View>
           )}
@@ -58,7 +87,14 @@ const SwapAccepted = ({ route }: any) => {
             <Button
               containerStyle={{ margin: 50, marginTop: 20 }}
               title="Send to Bookshelf"
+              onPress={accept}
+              disabled={isButtonDisabled}
             ></Button>
+            {success ? (
+              <View>
+                <Text style={{ color: "green" }}> Success!</Text>
+              </View>
+            ) : null}
           </View>
         </Card>
       </View>

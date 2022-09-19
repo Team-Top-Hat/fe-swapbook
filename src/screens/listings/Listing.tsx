@@ -9,12 +9,12 @@ const Listing: React.FC<StackScreenProps<any>> = ({
   navigation,
   route,
 }: any) => {
-  const currentListing = route.params.listing;
-
   const [googleBook, setGoogleBook] = React.useState({
     authors: [""],
     description: "",
   });
+
+  const currentListing = route.params.listing;
 
   useEffect(() => {
     fetchGoogleBook(

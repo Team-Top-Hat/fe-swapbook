@@ -3,16 +3,20 @@ import React, { useContext } from "react";
 import { Card, Button } from "@rneui/themed";
 import { UserContext } from "../../context/UserContext";
 import { Dropdown } from "react-native-element-dropdown";
+import { postSwap } from "../../api";
+import { useAuthentication } from "../../utils/hooks/useAuthentication";
 
 const TradeOffer = ({ route }: any) => {
-  const currentListing = route.params.listing;
   const { currentUser } = useContext(UserContext);
+  const { user }: any = useAuthentication();
 
   const [dropdownValue, setDropDownValue] = React.useState(null);
   const [index, setIndex] = React.useState(0);
   const [email, setEmail] = React.useState("");
+  const [isButtonDisabled, setIsButtonDisabled] = React.useState(true);
+  const [success, setSuccess] = React.useState(false);
 
-  console.log(email);
+  const currentListing = route.params.listing;
 
   const booksFromBookshelf: {
     index: number;
@@ -38,6 +42,25 @@ const TradeOffer = ({ route }: any) => {
       </View>
     );
   };
+
+  function addSwap() {
+    setIsButtonDisabled(true);
+    const newSwap = {
+      user1_email: email,
+      book1_cover: booksFromBookshelf[index].book_cover,
+      book1_title: booksFromBookshelf[index].title,
+      book1_ISBN: booksFromBookshelf[index].ISBN,
+      book2_ISBN: currentListing.ISBN,
+      book2_cover: currentListing.cover_url,
+      book2_title: currentListing.title,
+      status: "pending",
+      user_id2: currentListing.user_id,
+    };
+
+    postSwap(user.stsTokenManager.accessToken, newSwap).then((res) => {
+      setSuccess(true);
+    });
+  }
 
   return (
     <View style={styles.container}>
@@ -73,15 +96,32 @@ const TradeOffer = ({ route }: any) => {
         onChange={(item) => {
           setDropDownValue(item.ISBN);
           setIndex(item.index);
+          setIsButtonDisabled(false);
         }}
         renderItem={renderItem}
       />
-      <TextInput
-        autoComplete="off"
-        placeholder="Contact Email"
-        value={email}
-        onChangeText={(text: any) => setEmail(text)}></TextInput>
-      <Button title="Submit" onPress={() => {}}></Button>
+      <View style={styles.control}>
+        <TextInput
+          autoComplete="off"
+          placeholder="Contact Email"
+          value={email}
+          style={styles.input}
+          onChangeText={(text: any) => {
+            setEmail(text);
+            setIsButtonDisabled(false);
+          }}
+        ></TextInput>
+        <Button
+          title="Submit"
+          onPress={addSwap}
+          disabled={isButtonDisabled}
+        ></Button>
+        {success ? (
+          <View>
+            <Text style={{ color: "green" }}>Success!</Text>
+          </View>
+        ) : null}
+      </View>
     </View>
   );
 };
@@ -94,6 +134,18 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
     alignItems: "center",
     justifyContent: "center",
+  },
+
+  input: {
+    height: 20,
+    margin: 10,
+  },
+
+  control: {
+    marginTop: 10,
+    marginBottom: 15,
+    justifyContent: "space-between",
+    height: 50,
   },
 
   cardImage: {
@@ -124,7 +176,6 @@ const styles = StyleSheet.create({
     },
     shadowOpacity: 0.2,
     shadowRadius: 1.41,
-
     elevation: 2,
   },
   item: {
@@ -135,10 +186,12 @@ const styles = StyleSheet.create({
   },
   textItem: {
     flex: 1,
+    height: 20,
     fontSize: 16,
   },
   placeholderStyle: {
     fontSize: 16,
+    height: 40,
   },
   selectedTextStyle: {
     fontSize: 16,

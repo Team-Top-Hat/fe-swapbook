@@ -1,7 +1,7 @@
 import { getFocusedRouteNameFromRoute } from "@react-navigation/native";
 
 export function getHeaderTitle(route) {
-  const routeName = getFocusedRouteNameFromRoute(route) ?? "Listings";
+  const routeName = getFocusedRouteNameFromRoute(route) ?? "Home";
 
   switch (routeName) {
     case "Listings":
@@ -14,10 +14,10 @@ export function getHeaderTitle(route) {
       return "My account";
     case "AddBook":
       return "Add Book";
-    case "Tradeffer":
+    case "TradeOffer":
       return "Trade Offer";
     case "SwapHistory":
-      return "Swap History";
+      return "Swap Overview";
     case "Swap":
       return "Swap";
     case "SwapAccepted":
@@ -26,5 +26,7 @@ export function getHeaderTitle(route) {
       return "Welcome";
     case "TradeOffer":
       return "Swap Offer";
+    case "Home":
+      return "Home";
   }
 }

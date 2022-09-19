@@ -26,7 +26,7 @@ const Drawer = createDrawerNavigator();
 function ScreenNav() {
   return (
     <Stack.Navigator screenOptions={{ headerShown: false }}>
-      <Stack.Screen name="HomeScreen" component={HomeScreen} />
+      <Stack.Screen name="Home" component={HomeScreen} />
       <Stack.Screen name="AddBook" component={AddBook} />
       <Stack.Screen name="Listing" component={Listing} />
       <Stack.Screen name="TradeOffer" component={TradeOffer} />
@@ -50,6 +50,7 @@ export default function UserStack() {
     email: string;
     name: string;
     test: string;
+    id: string;
   }
 
   const [currentUser, setCurrentUser] = React.useState<AppUserContext | null>(
@@ -93,7 +94,7 @@ export default function UserStack() {
           <Drawer.Screen
             name="SwapHistory"
             component={SwapHistory}
-            options={{ title: "Swap History" }}
+            options={{ title: "Swap Overview" }}
           />
         </Drawer.Navigator>
       </NavigationContainer>

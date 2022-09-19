@@ -21,6 +21,11 @@ const Home: React.FC<StackScreenProps<any>> = ({ navigation }) => {
           onPress={() => navigation.navigate("Listings")}
         />
         <Button
+          title="View Bookshelf"
+          containerStyle={{ margin: 10 }}
+          onPress={() => navigation.navigate("BookShelf")}
+        />
+        <Button
           title="View Swap History"
           containerStyle={{ margin: 10 }}
           onPress={() => navigation.navigate("SwapHistory")}
