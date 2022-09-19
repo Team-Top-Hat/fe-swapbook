@@ -7,7 +7,6 @@ const WelcomeScreen: React.FC<StackScreenProps<any>> = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <Text style={{ fontSize: 20 }}>Welcome!</Text>
-      <Image source={{ uri: "" }} PlaceholderContent={<ActivityIndicator />} />
       <View style={styles.buttons}>
         <Button
           title="Browse Listings"

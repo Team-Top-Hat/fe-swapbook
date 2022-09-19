@@ -23,7 +23,7 @@ const Profile: React.FC<StackScreenProps<any>> = ({ navigation }) => {
         />
 
         <Button
-          title="DELETE ACCOUNT"
+          title="Delete Account"
           containerStyle={{ margin: 10, marginTop: 50 }}
           onPress={() => {
             if (user) {
