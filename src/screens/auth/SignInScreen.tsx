@@ -36,7 +36,7 @@ const SignInScreen = () => {
 
   return (
     <View style={styles.container}>
-      <Text>Signin screen!</Text>
+      <Text>Please sign in with your username and password.</Text>
 
       {!!value.error && (
         <View style={styles.error}>
@@ -46,7 +46,7 @@ const SignInScreen = () => {
 
       <View style={styles.controls}>
         <View style={styles.control}>
-          <Icon size={16} name="envelope"></Icon>
+          <Icon size={16} name="envelope" style={{ margin: 10 }} />
           <TextInput
             autoComplete="off"
             placeholder="Email"
@@ -55,7 +55,7 @@ const SignInScreen = () => {
           />
         </View>
         <View style={styles.control}>
-          <Icon size={16} name="key"></Icon>
+          <Icon size={16} name="key" style={{ margin: 10 }} />
           <TextInput
             autoComplete="off"
             placeholder="Password"
@@ -86,6 +86,7 @@ const styles = StyleSheet.create({
 
   control: {
     marginTop: 10,
+    flexDirection: "row",
   },
 
   error: {
