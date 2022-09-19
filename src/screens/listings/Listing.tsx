@@ -1,4 +1,11 @@
-import { StyleSheet, Text, View, Image, Dimensions } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  View,
+  Image,
+  Dimensions,
+  ScrollView,
+} from "react-native";
 import React, { useEffect } from "react";
 import { StackScreenProps } from "@react-navigation/stack";
 import { Button } from "@rneui/base";
@@ -25,7 +32,7 @@ const Listing: React.FC<StackScreenProps<any>> = ({
         description: res.items[0].volumeInfo.description,
       });
     });
-  }, []);
+  }, [currentListing]);
 
   return (
     <View style={styles.container}>
@@ -42,10 +49,12 @@ const Listing: React.FC<StackScreenProps<any>> = ({
                 uri: currentListing.cover_url,
               }}
             />
-            <View>
-              <Text style={{ textAlign: "center" }}>
-                {googleBook.description}
-              </Text>
+            <View style={{ height: "30%" }}>
+              <ScrollView>
+                <Text style={{ textAlign: "center" }}>
+                  {googleBook.description}
+                </Text>
+              </ScrollView>
             </View>
           </View>
         </View>
