@@ -9,11 +9,6 @@ const WelcomeScreen: React.FC<StackScreenProps<any>> = ({ navigation }) => {
       <Text style={{ fontSize: 20 }}>Welcome!</Text>
       <View style={styles.buttons}>
         <Button
-          title="Browse Listings"
-          containerStyle={{ margin: 10 }}
-          onPress={() => navigation.navigate("Listings")}
-        />
-        <Button
           title="Sign in"
           containerStyle={{ margin: 30, marginBottom: 10 }}
           onPress={() => navigation.navigate("Sign In")}

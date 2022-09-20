@@ -6,14 +6,6 @@ export function fetchGoogleBook(searchParameters: string) {
   });
 }
 
-export function fetchAllListingsnon() {
-  return fetch(`https://powerful-foal-sweater.cyclic.app/api/listings`).then(
-    (response) => {
-      return response.json();
-    }
-  );
-}
-
 export function fetchAllListings(key: string) {
   return fetch(`https://alert-cow-loincloth.cyclic.app/api/listings`, {
     method: "GET",

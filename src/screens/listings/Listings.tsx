@@ -10,12 +10,12 @@ import {
 } from "react-native";
 import React, { useEffect } from "react";
 import { Card } from "@rneui/themed";
-import { fetchAllListings, fetchAllListingsnon } from "../../api";
+import { fetchAllListings } from "../../api";
 import { getAuth } from "firebase/auth";
 
 const Listings: React.FC<StackScreenProps<any>> = ({ navigation }) => {
   const [isLoading, setIsLoading] = React.useState(true);
-  const [isLoggedIn, setIsLoggedIn] = React.useState(0);
+  const [isLoggedIn, setIsLoggedIn] = React.useState(false);
   const [listings, setListings] = React.useState([
     {
       title: "",
@@ -30,16 +30,12 @@ const Listings: React.FC<StackScreenProps<any>> = ({ navigation }) => {
   useEffect(() => {
     getAuth().onAuthStateChanged(function (user) {
       if (user) {
-        setIsLoggedIn(1);
-      } else {
-        setIsLoggedIn(2);
+        setIsLoggedIn(true);
       }
     });
-    if (isLoggedIn !== 0) {
-      (isLoggedIn === 1
-        ? fetchAllListings(user.stsTokenManager.accessToken)
-        : fetchAllListingsnon()
-      ).then((res) => {
+
+    if (isLoggedIn !== false) {
+      fetchAllListings(user.stsTokenManager.accessToken).then((res) => {
         const dataFromApi: {
           title: string;
           cover_url: string;
@@ -62,7 +58,7 @@ const Listings: React.FC<StackScreenProps<any>> = ({ navigation }) => {
     }
   }, [isLoggedIn]);
 
-  if (isLoading || isLoggedIn === 0)
+  if (isLoading || isLoggedIn === false)
     return (
       <View style={styles.loading}>
         <ActivityIndicator size="large" />
@@ -90,6 +86,7 @@ const Listings: React.FC<StackScreenProps<any>> = ({ navigation }) => {
                     <Card.Image
                       style={styles.image}
                       source={{ uri: listing.cover_url }}
+                      PlaceholderContent={<ActivityIndicator />}
                     />
                   </View>
                 </Card>
