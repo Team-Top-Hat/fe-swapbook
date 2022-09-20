@@ -78,18 +78,20 @@ const Listings: React.FC<StackScreenProps<any>> = ({ navigation }) => {
                   })
                 }
                 key={i}>
-                <Card>
-                  <View style={styles.cardContent}>
-                    <View style={styles.text}>
-                      <Card.Title>{listing.title}</Card.Title>
+                <View style={styles.card}>
+                  <Card>
+                    <View style={styles.cardContent}>
+                      <View style={styles.text}>
+                        <Card.Title>{listing.title}</Card.Title>
+                      </View>
+                      <Card.Image
+                        style={styles.image}
+                        source={{ uri: listing.cover_url }}
+                        PlaceholderContent={<ActivityIndicator />}
+                      />
                     </View>
-                    <Card.Image
-                      style={styles.image}
-                      source={{ uri: listing.cover_url }}
-                      PlaceholderContent={<ActivityIndicator />}
-                    />
-                  </View>
-                </Card>
+                  </Card>
+                </View>
               </TouchableOpacity>
             );
           })}
@@ -110,6 +112,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     flexWrap: "wrap",
   },
+
   loading: {
     flex: 1,
     backgroundColor: "#fff",
@@ -123,19 +126,27 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
 
+  card: {
+    width: Dimensions.get("window").width / 2,
+  },
+
   cardContent: {
     width: Dimensions.get("window").width / 3,
+    height: Dimensions.get("window").width / 2,
     justifyContent: "space-around",
     alignItems: "center",
-    height: Dimensions.get("window").width / 2,
+    marginBottom: 10,
   },
 
   image: {
+    flex: 1,
     width: Dimensions.get("window").width / 4,
+    height: Dimensions.get("window").width / 2.4,
     resizeMode: "contain",
     marginBottom: 15,
     marginTop: 30,
   },
+
   text: {
     marginTop: 15,
   },

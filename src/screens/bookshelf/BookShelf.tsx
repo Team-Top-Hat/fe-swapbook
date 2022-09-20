@@ -43,34 +43,38 @@ const BookShelf: React.FC<StackScreenProps<any>> = ({ navigation }) => {
     <ScrollView>
       <View style={styles.container}>
         <TouchableOpacity onPress={() => navigation.navigate("AddBook")}>
-          <Card key={"addbook"}>
-            <View style={styles.cardContent}>
-              <Card.Title>{"Add Book"}</Card.Title>
-              <Text style={{ textAlign: "center", fontSize: 45 }}>
-                &#x2795;
-              </Text>
-            </View>
-            <Text></Text>
-          </Card>
+          <View style={styles.card}>
+            <Card key={"addbook"}>
+              <View style={styles.cardContent}>
+                <Card.Title>{"Add Book"}</Card.Title>
+                <Text style={{ textAlign: "center", fontSize: 45 }}>
+                  &#x2795;
+                </Text>
+              </View>
+              <Text></Text>
+            </Card>
+          </View>
         </TouchableOpacity>
         {currentUser?.bookshelf.map(function (book) {
           return (
-            <Card key={book.title}>
-              <TouchableOpacity
-                onPress={() => {
-                  removeBook(book.ISBN);
-                }}>
-                <Text style={{ textAlign: "right", color: "red" }}>X</Text>
-              </TouchableOpacity>
-              <View style={styles.cardContent}>
-                <Card.Title style={styles.text}>{book.title}</Card.Title>
-                <Card.Image
-                  style={styles.image}
-                  source={{ uri: book.cover_url }}
-                  PlaceholderContent={<ActivityIndicator />}
-                />
-              </View>
-            </Card>
+            <View style={styles.card} key={book.title}>
+              <Card>
+                <TouchableOpacity
+                  onPress={() => {
+                    removeBook(book.ISBN);
+                  }}>
+                  <Text style={{ textAlign: "right", color: "red" }}>X</Text>
+                </TouchableOpacity>
+                <View style={styles.cardContent}>
+                  <Card.Title style={styles.text}>{book.title}</Card.Title>
+                  <Card.Image
+                    style={styles.image}
+                    source={{ uri: book.cover_url }}
+                    PlaceholderContent={<ActivityIndicator />}
+                  />
+                </View>
+              </Card>
+            </View>
           );
         })}
       </View>
@@ -88,23 +92,32 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     flexWrap: "wrap",
   },
+
   button: {
     marginTop: 10,
   },
 
+  card: {
+    width: Dimensions.get("window").width / 2,
+  },
+
   cardContent: {
     width: Dimensions.get("window").width / 3,
+    height: Dimensions.get("window").width / 2,
     justifyContent: "space-around",
     alignItems: "center",
-    height: Dimensions.get("window").width / 2,
+    marginBottom: 10,
   },
 
   image: {
+    flex: 1,
     width: Dimensions.get("window").width / 4,
+    height: Dimensions.get("window").width / 2.4,
     resizeMode: "contain",
     marginBottom: 15,
     marginTop: 30,
   },
+
   text: {
     marginTop: 15,
   },
