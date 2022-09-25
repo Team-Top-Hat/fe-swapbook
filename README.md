@@ -6,6 +6,8 @@ This project is the Frontend for the Swapbook app, an app that solves the proble
 
 The goal of swap book is the redistribution of knowledge in an environmentally friendly and economical way.
 
+The back-end of this project can be found in [this](https://github.com/Team-Top-Hat/be-swapbook) repository.
+
 ---
 
 ## Getting Started
