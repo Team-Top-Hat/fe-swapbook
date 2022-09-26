@@ -17,15 +17,13 @@
     "dotenv": "^16.0.2",
     "expo": "~46.0.9",
     "expo-constants": "~13.2.4",
-    "expo-status-bar": "~1.4.0",
     "firebase": "^9.9.4",
     "react": "18.0.0",
     "react-dom": "18.0.0",
     "react-native": "0.69.5",
     "react-native-element-dropdown": "^2.3.0",
     "react-native-gesture-handler": "~2.5.0",
-    "react-native-reanimated": "~2.9.1",
-    "react-native-web": "~0.18.7"
+    "react-native-reanimated": "~2.9.1"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",

@@ -46,7 +46,7 @@ const Swap = ({ route }: any) => {
         </View>
 
         {currentUser?.bookshelf.some(
-          (book) => book.title === swap.book1_title
+          (book) => book.title === swap.book2_title
         ) ? (
           <View>
             <View style={styles.row}>

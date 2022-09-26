@@ -10,12 +10,12 @@ import {
 } from "react-native";
 import React, { useEffect } from "react";
 import { Card } from "@rneui/themed";
-import { fetchAllListings, fetchAllListingsnon } from "../../api";
+import { fetchAllListings } from "../../api";
 import { getAuth } from "firebase/auth";
 
 const Listings: React.FC<StackScreenProps<any>> = ({ navigation }) => {
   const [isLoading, setIsLoading] = React.useState(true);
-  const [isLoggedIn, setIsLoggedIn] = React.useState(0);
+  const [isLoggedIn, setIsLoggedIn] = React.useState(false);
   const [listings, setListings] = React.useState([
     {
       title: "",
@@ -30,16 +30,12 @@ const Listings: React.FC<StackScreenProps<any>> = ({ navigation }) => {
   useEffect(() => {
     getAuth().onAuthStateChanged(function (user) {
       if (user) {
-        setIsLoggedIn(1);
-      } else {
-        setIsLoggedIn(2);
+        setIsLoggedIn(true);
       }
     });
-    if (isLoggedIn !== 0) {
-      (isLoggedIn === 1
-        ? fetchAllListings(user.stsTokenManager.accessToken)
-        : fetchAllListingsnon()
-      ).then((res) => {
+
+    if (isLoggedIn !== false) {
+      fetchAllListings(user.stsTokenManager.accessToken).then((res) => {
         const dataFromApi: {
           title: string;
           cover_url: string;
@@ -62,7 +58,7 @@ const Listings: React.FC<StackScreenProps<any>> = ({ navigation }) => {
     }
   }, [isLoggedIn]);
 
-  if (isLoading || isLoggedIn === 0)
+  if (isLoading || isLoggedIn === false)
     return (
       <View style={styles.loading}>
         <ActivityIndicator size="large" />
@@ -82,17 +78,20 @@ const Listings: React.FC<StackScreenProps<any>> = ({ navigation }) => {
                   })
                 }
                 key={i}>
-                <Card>
-                  <View style={styles.cardContent}>
-                    <View style={styles.text}>
-                      <Card.Title>{listing.title}</Card.Title>
+                <View style={styles.card}>
+                  <Card>
+                    <View style={styles.cardContent}>
+                      <View style={styles.text}>
+                        <Card.Title>{listing.title}</Card.Title>
+                      </View>
+                      <Card.Image
+                        style={styles.image}
+                        source={{ uri: listing.cover_url }}
+                        PlaceholderContent={<ActivityIndicator />}
+                      />
                     </View>
-                    <Card.Image
-                      style={styles.image}
-                      source={{ uri: listing.cover_url }}
-                    />
-                  </View>
-                </Card>
+                  </Card>
+                </View>
               </TouchableOpacity>
             );
           })}
@@ -113,6 +112,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     flexWrap: "wrap",
   },
+
   loading: {
     flex: 1,
     backgroundColor: "#fff",
@@ -126,19 +126,27 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
 
+  card: {
+    width: Dimensions.get("window").width / 2,
+  },
+
   cardContent: {
     width: Dimensions.get("window").width / 3,
+    height: Dimensions.get("window").width / 2,
     justifyContent: "space-around",
     alignItems: "center",
-    height: Dimensions.get("window").width / 2,
+    marginBottom: 10,
   },
 
   image: {
+    flex: 1,
     width: Dimensions.get("window").width / 4,
+    height: Dimensions.get("window").width / 2.4,
     resizeMode: "contain",
     marginBottom: 15,
     marginTop: 30,
   },
+
   text: {
     marginTop: 15,
   },

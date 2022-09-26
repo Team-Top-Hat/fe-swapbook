@@ -27,7 +27,6 @@ export default function AuthStack() {
       <Drawer.Navigator
         screenOptions={{ headerStyle: { backgroundColor: "orange" } }}>
         <Drawer.Screen name="Welcome" component={WelcomeScreen} />
-        <Drawer.Screen name="Listings" component={Listings} />
         <Drawer.Screen name="Sign In" component={SignInScreen} />
         <Drawer.Screen name="Sign Up" component={SignOutScreen} />
         <Drawer.Screen
