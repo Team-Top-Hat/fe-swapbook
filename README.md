@@ -56,7 +56,7 @@ The app can also be run with an Android emulator by running the following CLI co
 
 After starting the app, please create an account to access the complete app.
 
-### minimum reccomended version
+### Minimum recommended version
 
 Node JS: v16.17.0
 
